@@ -247,9 +247,7 @@ int main(void)
 {
 	init_devices();
 	lcd_init();
-	lcd_wr_command(0x28);
-	lcd_wr_command(0x01);
-	lcd_wr_command(0x02);
+	lcd_set_4bit();
 	while(1)
 	{
 		
