@@ -140,8 +140,8 @@ void angle_rotate(unsigned int Degrees)
  ShaftCountLeft = 0; 
  while (1)
  {
-  //lcd_print(1,1,ShaftCountLeft,2);
-  //lcd_print(2,1,ShaftCountRight,2);
+  lcd_print(1,1,ShaftCountLeft,2);
+  lcd_print(2,1,ShaftCountRight,2);
   if((ShaftCountRight >= ReqdShaftCountInt) | (ShaftCountLeft >= ReqdShaftCountInt))
   			break;
  }
