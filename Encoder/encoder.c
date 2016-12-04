@@ -1,83 +1,3 @@
-/********************************************************************************
- Written by: Vinod Desai, NEX Robotics Pvt. Ltd.
- Edited by: Sachitanand Malewar, NEX Robotics Pvt. Ltd.
- AVR Studio Version 4.17, Build 666
-
- Date: 26th December 2010
-
- This experiment demonstrates use of position encoders.
-
- Concepts covered: External Interrupts, Position control
- 
- Microcontroller pins used:
- PORTA3 to PORTA0: Robot direction control
- PL3, PL4: Robot velocity control. Currently set to 1 as PWM is not used
- PE4 (INT4): External interrupt for left motor position encoder 
- PE5 (INT5): External interrupt for the right position encoder
-
- Note: 
- 
- 1. Make sure that in the configuration options following settings are 
- 	done for proper operation of the code
-
- 	Microcontroller: atmega2560
-    Frequency: 14745600
- 	Optimization: -O0  (For more information read section: Selecting proper optimization 
- 					options below figure 2.22 in the Software Manual)
-
- 2.	It is observed that external interrupts does not work with the optimization level -Os
-
- 3. Auxiliary power can supply current up to 1 Ampere while Battery can supply current up to 
- 	2 Ampere. When both motors of the robot changes direction suddenly without stopping, 
-	it produces large current surge. When robot is powered by Auxiliary power which can supply
-	only 1 Ampere of current, sudden direction change in both the motors will cause current 
-	surge which can reset the microcontroller because of sudden fall in voltage. 
-	It is a good practice to stop the motors for at least 0.5seconds before changing 
-	the direction. This will also increase the useable time of the fully charged battery.
-	the life of the motor.
-
-*********************************************************************************/
-
-/********************************************************************************
-
-   Copyright (c) 2010, NEX Robotics Pvt. Ltd.                       -*- c -*-
-   All rights reserved.
-
-   Redistribution and use in source and binary forms, with or without
-   modification, are permitted provided that the following conditions are met:
-
-   * Redistributions of source code must retain the above copyright
-     notice, this list of conditions and the following disclaimer.
-
-   * Redistributions in binary form must reproduce the above copyright
-     notice, this list of conditions and the following disclaimer in
-     the documentation and/or other materials provided with the
-     distribution.
-
-   * Neither the name of the copyright holders nor the names of
-     contributors may be used to endorse or promote products derived
-     from this software without specific prior written permission.
-
-   * Source code can be used for academic purpose. 
-	 For commercial use permission form the author needs to be taken.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-  LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-  INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-  POSSIBILITY OF SUCH DAMAGE. 
-
-  Software released under Creative Commence cc by-nc-sa licence.
-  For legal information refer to: 
-  http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode
-
-********************************************************************************/
 #define F_CPU 14745600
 
 #include <avr/io.h>
@@ -146,27 +66,16 @@ void right_position_encoder_interrupt_init (void) //Interrupt 5 enable
 ISR(INT5_vect)  
 {
  ShaftCountRight++;  //increment right shaft position count
- //lcd_cursor(1,1);
- //lcd_string(ShaftCountRight);
- //lcd_print(1,1,ShaftCountRight,3);
 }
-
-
 //ISR for left position encoder
 ISR(INT4_vect)
 {
-
  ShaftCountLeft++;  //increment left shaft position count
- //lcd_cursor(2,1);
- lcd_print(2,1,ShaftCountLeft,3);
 }
-
-
 //Function used for setting motor's direction
 void motion_set (unsigned char Direction)
 {
  unsigned char PortARestore = 0;
-
  Direction &= 0x0F; 		// removing upper nibbel for the protection
  PortARestore = PORTA; 		// reading the PORTA original status
  PortARestore &= 0xF0; 		// making lower direction nibbel to 0
@@ -225,17 +134,16 @@ void angle_rotate(unsigned int Degrees)
 {
  float ReqdShaftCount = 0;
  unsigned long int ReqdShaftCountInt = 0;
-	lcd_print(1,1,ShaftCountLeft,2);
  ReqdShaftCount = (float) Degrees/ 4.090; // division by resolution to get shaft count
  ReqdShaftCountInt = (unsigned long int) ReqdShaftCount;
  ShaftCountRight = 0; 
  ShaftCountLeft = 0; 
-
  while (1)
  {
- 	
+  //lcd_print(1,1,ShaftCountLeft,2);
+  //lcd_print(2,1,ShaftCountRight,2);
   if((ShaftCountRight >= ReqdShaftCountInt) | (ShaftCountLeft >= ReqdShaftCountInt))
-  break;
+  			break;
  }
  stop(); //Stop robot
 }
@@ -247,13 +155,13 @@ void linear_distance_mm(unsigned int DistanceInMM)
  float ReqdShaftCount = 0;
  unsigned long int ReqdShaftCountInt = 0;
 
- ReqdShaftCount = DistanceInMM / 5.338; // division by resolution to get shaft count
+ ReqdShaftCount =(float) DistanceInMM / 5.338; // division by resolution to get shaft count
  ReqdShaftCountInt = (unsigned long int) ReqdShaftCount;
-  
- //ShaftCountLeft = 0;
+ ShaftCountLeft = 0;
  while(1)
  {
-	
+  lcd_print(1,1,ShaftCountLeft,2);
+  lcd_print(2,1,ShaftCountRight,2);
   if(ShaftCountLeft > ReqdShaftCountInt)
   {
   	break;
@@ -280,8 +188,6 @@ void left_degrees(unsigned int Degrees)
  left(); //Turn left
  angle_rotate(Degrees);
 }
-
-
 
 void right_degrees(unsigned int Degrees)
 {
@@ -341,19 +247,19 @@ int main(void)
 {
 	init_devices();
 	lcd_init();
-	//lcd_wr_command(0x28);
-	//lcd_wr_command(0x01);
-	//lcd_wr_command(0x02);
+	lcd_wr_command(0x28);
+	lcd_wr_command(0x01);
+	lcd_wr_command(0x02);
 	while(1)
 	{
 		
-		/*forward_mm(100); //Moves robot forward 100mm
+		forward_mm(100); //Moves robot forward 100mm
 		stop();
 		_delay_ms(500);			
 		
 		back_mm(100);   //Moves robot backward 100mm
 		stop();			
-		_delay_ms(500);*/
+		_delay_ms(500);
 		
 		left_degrees(90); //Rotate robot left by 90 degrees
 		stop();
