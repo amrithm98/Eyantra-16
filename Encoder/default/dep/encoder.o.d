@@ -1,4 +1,4 @@
-encoder.o: ../encoder.c \
+encoder.o: ../encoder.c ../header.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/avr/io.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/avr/sfr_defs.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/inttypes.h \
@@ -13,7 +13,13 @@ encoder.o: ../encoder.c \
   c:/winavr-20090313/lib/gcc/../../avr/include/avr/interrupt.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/util/delay.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/util/delay_basic.h \
-  ../lcd.c c:/winavr-20090313/lib/gcc/../../avr/include/avr/delay.h
+  ../lcd.c c:/winavr-20090313/lib/gcc/../../avr/include/avr/delay.h \
+  c:/winavr-20090313/lib/gcc/../../avr/include/stdio.h \
+  c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stdarg.h \
+  c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stddef.h \
+  c:/winavr-20090313/lib/gcc/../../avr/include/stdlib.h
+
+../header.h:
 
 c:/winavr-20090313/lib/gcc/../../avr/include/avr/io.h:
 
@@ -46,3 +52,11 @@ c:/winavr-20090313/lib/gcc/../../avr/include/util/delay_basic.h:
 ../lcd.c:
 
 c:/winavr-20090313/lib/gcc/../../avr/include/avr/delay.h:
+
+c:/winavr-20090313/lib/gcc/../../avr/include/stdio.h:
+
+c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stdarg.h:
+
+c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stddef.h:
+
+c:/winavr-20090313/lib/gcc/../../avr/include/stdlib.h:

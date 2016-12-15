@@ -1,1 +1,1 @@
-<AVRWorkspace><IOSettings><CurrentRegisters/></IOSettings><part name="ATMEGA2560"/><Files><File00000 Name="C:\Users\Amrith\Documents\Motion\motion.c" Position="343 174 962 452" LineCol="5 1"/></Files></AVRWorkspace>
+<AVRWorkspace><IOSettings><CurrentRegisters/></IOSettings><part name="ATMEGA2560"/><Files><File00000 Name="motion.c" Position="267 76 1009 477" LineCol="106 23" State="Maximized"/></Files></AVRWorkspace>

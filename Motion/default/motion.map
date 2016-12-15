@@ -113,7 +113,7 @@ LOAD c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x31e
+.text           0x00000000      0x250
  *(.vectors)
  .vectors       0x00000000       0xe4 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/../../../../avr/lib/avr6/crtm2560.o
                 0x00000000                __vectors
@@ -224,7 +224,7 @@ LOAD c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a
                 0x00000116                __vector_18
                 0x00000116                __vector_20
                 0x00000116                __vector_42
- .text          0x0000011a      0x200 motion.o
+ .text          0x0000011a      0x132 motion.o
                 0x0000013c                port_init
                 0x000001dc                soft_right
                 0x0000011a                motion_pin_config
@@ -238,15 +238,15 @@ LOAD c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a
                 0x0000019e                motion_set
                 0x000001d2                soft_left
                 0x000001e6                stop
- .text          0x0000031a        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a(_exit.o)
-                0x0000031a                . = ALIGN (0x2)
+ .text          0x0000024c        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a(_exit.o)
+                0x0000024c                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x0000031a        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a(_exit.o)
-                0x0000031a                . = ALIGN (0x2)
+ .text.libgcc   0x0000024c        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a(_exit.o)
+                0x0000024c                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000031a        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a(_exit.o)
-                0x0000031a                exit
-                0x0000031a                _exit
+ .fini9         0x0000024c        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a(_exit.o)
+                0x0000024c                exit
+                0x0000024c                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -265,11 +265,11 @@ LOAD c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000031a        0x4 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a(_exit.o)
+ .fini0         0x0000024c        0x4 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000031e                _etext = .
+                0x00000250                _etext = .
 
-.data           0x00800200        0x0 load address 0x0000031e
+.data           0x00800200        0x0 load address 0x00000250
                 0x00800200                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800200        0x0 c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/../../../../avr/lib/avr6/crtm2560.o
@@ -292,8 +292,8 @@ LOAD c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a
  *(.bss*)
  *(COMMON)
                 0x00800200                PROVIDE (__bss_end, .)
-                0x0000031e                __data_load_start = LOADADDR (.data)
-                0x0000031e                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000250                __data_load_start = LOADADDR (.data)
+                0x00000250                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800200        0x0
                 0x00800200                PROVIDE (__noinit_start, .)
@@ -362,36 +362,33 @@ LOAD c:/winavr-20090313/bin/../lib/gcc/avr/4.3.2/avr6\libgcc.a
  .debug_pubnames
                 0x00000000       0xbd motion.o
 
-.debug_info     0x00000000      0x881
+.debug_info     0x00000000      0x376
  *(.debug_info)
- .debug_info    0x00000000      0x881 motion.o
+ .debug_info    0x00000000      0x376 motion.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00000000      0x174
+.debug_abbrev   0x00000000      0x10d
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x174 motion.o
+ .debug_abbrev  0x00000000      0x10d motion.o
 
-.debug_line     0x00000000      0x601
+.debug_line     0x00000000      0x35f
  *(.debug_line)
- .debug_line    0x00000000      0x601 motion.o
+ .debug_line    0x00000000      0x35f motion.o
 
 .debug_frame    0x00000000       0xe0
  *(.debug_frame)
  .debug_frame   0x00000000       0xe0 motion.o
 
-.debug_str      0x00000000      0x131
+.debug_str      0x00000000       0xde
  *(.debug_str)
- .debug_str     0x00000000      0x131 motion.o
-                                0x170 (size before relaxing)
+ .debug_str     0x00000000       0xde motion.o
+                                0x11d (size before relaxing)
 
-.debug_loc      0x00000000      0x208
+.debug_loc      0x00000000       0x13
  *(.debug_loc)
- .debug_loc     0x00000000      0x208 motion.o
+ .debug_loc     0x00000000       0x13 motion.o
 
 .debug_macinfo
  *(.debug_macinfo)
 OUTPUT(motion.elf elf32-avr)
 LOAD linker stubs
-
-.debug_ranges   0x00000000       0xc0
- .debug_ranges  0x00000000       0xc0 motion.o

@@ -84,7 +84,7 @@ int main(void)
 	init_timer5();
 	while(1)
 	{
-		velocity(100,100);
+	/*	velocity(100,100);
 		forward();
 		_delay_ms(2000);
 		
@@ -103,12 +103,12 @@ int main(void)
 		velocity(255,255);
 		soft_left();
 		_delay_ms(2000);
-
-		velocity(255,255);
+*/
+//		velocity(255,255); 
 		soft_right();
-		_delay_ms(2000);
+	/*	_delay_ms(2000);
 
 		stop();
-		_delay_ms(2000);
+		_delay_ms(2000);*/
 	}
 }
