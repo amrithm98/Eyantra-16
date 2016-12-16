@@ -29,6 +29,7 @@ unsigned char Right_white_line = 0;
 volatile unsigned long int ShaftCountLeft = 0; //to keep track of left position encoder 
 volatile unsigned long int ShaftCountRight = 0; //to keep track of right position encoder
 volatile unsigned int Degrees; //to accept angle in degrees for turning
+volatile unsigned long int distanceShaft = 0;
 
 //Function to configure ports to enable robot's motion
 void motion_pin_config (void) 
@@ -37,6 +38,22 @@ void motion_pin_config (void)
  PORTA = PORTA & 0xF0;
  DDRL = DDRL | 0x18;   //Setting PL3 and PL4 pins as output for PWM generation
  PORTL = PORTL | 0x18; //PL3 and PL4 pins are for velocity control using PWM.
+}
+void buzzer_on(void)
+{
+	
+	PORTC= 0x08;   // pin 3 to high 0000 1000
+}
+
+void buzzer_pin_config(void)
+{
+	DDRC=DDRC | 0x08; // pin 3 as op
+	PORTC=PORTC & 0xF7;
+
+}
+void buzzer_off(void)
+{
+	PORTC= 0x00;
 }
 void init_timer5(void)	//Timer For PWM
 {
@@ -59,6 +76,18 @@ WGM51=0,WGM50=1 along with WGM52 in TCCRB for selecting fast PWM 8 bit mode
 
 	TCCR5B = 0x0B;	//WGM12=1,CS12=0,CS11=1,CS10=1	(Prescaler=64)
 
+}
+unsigned int Sharp_dist(unsigned char adc_reading)
+{
+	float distance;
+	unsigned int distanceInt;
+	distance = (int)(10.00*(2799.6*(1.00/(pow(adc_reading,1.1546)))));
+	distanceInt = (int)distance;
+	if(distanceInt>800)
+	{
+		distanceInt=800;
+	}
+	return distanceInt;
 }
 
 void lcd_port_config (void)
@@ -101,11 +130,13 @@ void right_position_encoder_interrupt_init (void) //Interrupt 5 enable
 //ISR for right position encoder
 ISR(INT5_vect)  
 {
+ distanceShaft++;
  ShaftCountRight++;  //increment right shaft position count
 }
 //ISR for left position encoder
 ISR(INT4_vect)
 {
+ distanceShaft++;
  ShaftCountLeft++;  //increment left shaft position count
 }
 //Function used for setting motor's direction
@@ -258,7 +289,7 @@ void soft_left_2_degrees(unsigned int Degrees)
  Degrees=Degrees*2;
  angle_rotate(Degrees);
 }
-
+ 
 void soft_right_2_degrees(unsigned int Degrees)
 {
  // 176 pulses for 360 degrees rotation 2.045 degrees per count
@@ -284,8 +315,8 @@ void adc_init(void)
 }
 void velocity(unsigned char left,unsigned char right)	//Set PWM Velocity
 {
-	lcd_print(2,1,left,3);
-	lcd_print(2,5,right,3);
+	//lcd_print(2,1,left,3);
+	//lcd_print(2,5,right,3);
 	OCR5AL = (unsigned char) left;
 	OCR5BL = (unsigned char) right;
 }
@@ -295,6 +326,7 @@ void port_init()
  motion_pin_config(); //robot motion pins config
  left_encoder_pin_config(); //left encoder pin config
  right_encoder_pin_config(); //right encoder pin config	
+ buzzer_pin_config();//Buzzer Pin
 }
 void init_devices()
 {
