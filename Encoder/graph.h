@@ -1,12 +1,3 @@
-/*########################################
-#########################################
-###########################################
-##############################################
-##############################################
-#################################################
-#########################################
-###########################################*/
-
 struct vertice;
 volatile int path[40],pathLen;
 int distance_Sharp=0;
@@ -26,18 +17,18 @@ int getFinalDest(int dest, int finalDest[]) {
 		return 1;
 	} else {
 		switch(dest) {
-			case 25: addToArr(finalDest,1,2,24,25,26,27); break;
-			case 26: addToArr(finalDest,25,26,28,29,30,31); break;
-			case 27: addToArr(finalDest,4,5,6,28,29,32); break;
-			case 28: addToArr(finalDest,8,9,10,33,34,35); break;
-			case 29: addToArr(finalDest,33,34,36,37,38,39); break;
-			case 30: addToArr(finalDest,12,13,14,36,37,40); break;
-			case 31: addToArr(finalDest,16,17,18,41,42,43); break;
-			case 32: addToArr(finalDest,41,42,44,45,46,47); break;
-			case 33: addToArr(finalDest,20,21,22,44,45,48); break;
+			case 25: addToArr(finalDest,1,25,26,27,0,0); return 4;
+			case 26: addToArr(finalDest,25,26,28,29,30,31); return 6;
+			case 27: addToArr(finalDest,5,28,29,32,0,0); return 4;
+			case 28: addToArr(finalDest,9,33,34,35,0,0); return 4;
+			case 29: addToArr(finalDest,33,34,36,37,38,39); return 6;
+			case 30: addToArr(finalDest,13,36,37,40,0,0); return 4;
+			case 31: addToArr(finalDest,17,41,42,43,0,0); return 4;
+			case 32: addToArr(finalDest,41,42,44,45,46,47); return 6;
+			case 33: addToArr(finalDest,21,44,45,48,0,0); return 4;
 		}
-		return 6;
 	}
+	return 0;
 }
 
 int getOtherSide(int tempE, int tempG) {
@@ -73,7 +64,7 @@ void init_graph() {
 	int verticeXY[98] = {57,275,63,219,84,169,117,121,164,89,216,65,271,59,328,63,381,88,426,125,463,168,480,221,489,276,480,330,458,384,425,425,381,458,328,484,273,489,214,485,161,461,116,428,83,382,63,333,116,223,146,278,114,329,147,167,209,167,241,217,206,272,240,112,397,164,333,166,302,115,429,225,397,277,336,276,304,223,430,329,305,439,334,382,398,386,241,437,214,382,240,333,302,328,145,382,271,275},
 	edgeEnds[126] = {1,2,1,24,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16,17,17,18,18,19,19,20,20,21,21,22,22,23,23,24,3,25,25,26,26,27,27,23,25,28,28,29,29,30,30,31,31,26,3,28,32,7,32,29,7,35,35,34,34,33,33,11,33,36,36,37,37,38,38,39,39,34,11,36,37,40,40,15,43,15,43,42,41,42,41,19,42,47,47,46,46,45,45,44,44,41,19,44,45,48,48,23,26,45,29,34,37,42},
 	edgeAngles[63] = {82,-82,67,52,37,22,7,-7,-22,-37,-52,-67,-82,-97,-112,-127,-142,-157,-172,172,157,142,127,112,-60,-60,-120,-120,60,0,-60,-120,180,0,60,-120,-60,-60,0,0,-60,-120,180,120,60,-120,-60,-60,0,180,60,-120,120,180,-120,-60,0,120,180,180,-60,0,-120},
-	edgeDist[63] = {20,21,19,21,20,20,20,20,21,21,20,20,20,19,21,18,20,21,20,21,21,20,20,18,22,22,21,22,23,22,21,23,21,23,22,23,23,21,23,24,24,22,22,22,23,24,22,22,21,23,23,21,22,22,20,22,23,22,25,22,45,45,44},
+	edgeDist[63] = {20,21,19,21,20,20,20,20,21,21,20,20,20,19,21,18,20,21,20,21,21,20,20,18,22,21,21,22,21,21,21,23,21,23,22,23,23,21,23,24,24,22,22,22,23,24,22,22,21,23,23,21,22,22,20,22,23,22,25,22,45,45,44},
 	i;
 	for (i = 0; i < 49; i++) { //Vertice Initialization
 		verticeList[i].n = i;
@@ -101,10 +92,6 @@ void mainFun(int src,int dest,int compass) {
 	dist[src - 1] = 0;
 	qLen = 1; q[0] = src - 1;
 	while ( qLen>0 ) {
-		
-		////lcd_print(2,13,1,1);
-		////lcd_print(1,13,qLen,3);
-		//_delay_ms(2000);
 		for (i = 0; i < finalDestCount; i++)
 			if (prevPts[finalDest[i]-1] != -1) {
 				for (j = 0; j < qLen; j++) {
@@ -116,27 +103,17 @@ void mainFun(int src,int dest,int compass) {
 		for (i = 0; i < qLen; i++) {
 			x = q[i];
 			dequeue(q,qLen,i); i--; qLen--;
-			////lcd_print(2,13,2,1);
-			////lcd_print(1,13,qLen,3);
-			//_delay_ms(2000);
 			for (j = 0; j < verticeList[x].edgeCount; j++) {
 				if (edgeList[verticeList[x].edgePoints[j]].obstacle == 1) continue;
 				y = getOtherSide(verticeList[x].edgePoints[j],x);
-				////lcd_print(2,13,3,1);
-				////lcd_print(1,11,dist[y],5);
-				//_delay_ms(2000);
 				if (dist[y] > dist[x] + edgeList[verticeList[x].edgePoints[j]].distance) {
 					dist[y] = dist[x] + edgeList[verticeList[x].edgePoints[j]].distance;
 					prevPts[y] = x;
-					////lcd_print(2,13,4,1);
-					////lcd_print(1,13,qLen,3);
-					//_delay_ms(2000);
 					enqueue(q,qLen,i+1,y); qLen++; i++;
 				}
 			}
 		}
 	}
-	////lcd_print(1,13,qLen,3);
 	for (x = 0, i = 1; i < finalDestCount; i++) {
 		if (dist[finalDest[i]-1] < dist[finalDest[x]-1])
 			x = i;
@@ -159,7 +136,6 @@ void mainFun(int src,int dest,int compass) {
 		z = prevPts[z];
 	}
 	path[pathLen++] = src;
-	
 	for (i = 0; i < pathLen/2; i++) {
 		x = path[i];
 		path[i] = path[pathLen-i-1];
@@ -172,37 +148,4 @@ void mainFun(int src,int dest,int compass) {
 		else if (path[i] <= -180) path[i] += 360;
 		compass = x;
 	}
-	//Actual length
-	for(i=2;i<pathLen;i+=3)
-		//path[i]=path[i]*23/63;
-	//return pathLen;
-	for (i = 0; i < pathLen; i++) {
-		//printf("%d ", path[i]);
-		//lcd_print(2,13,i,1);
-		//lcd_print(1,13,path[i],3);
-		//_delay_ms(2000);
-	}
-	//printf("%d ");
-	//printf("\n");
-	//return pathLen;
 }
-
-/*int main(int argc, char *argv[]) {
-	int src = atoi(argv[1]), dest = atoi(argv[2]);
-	mainFun(src,dest);
-}*/
-
-
-/*##############################################
-##############################################
-#################################################
-#########################################
-###########################################
-##############################################
-##############################################
-#################################################
-#########################################
-###########################################
-##############################################
-##############################################
-#################################################*/
