@@ -1,3 +1,11 @@
+/*
+* Team Id: 1320
+* Author List: Daniel James, Amrith M
+* Filename: encoder.c
+* Theme: Bothoven
+* Functions: printNsetDJ,printLCD1,printLCD2,beep,main
+* Global Variables: None
+*/
 #include "header.h"
 #include "graph.h"
 
