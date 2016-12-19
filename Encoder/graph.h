@@ -3,9 +3,10 @@
 * Author List: Daniel James, Amrith M
 * Filename: graph.h
 * Theme: Bothoven
-* Functions: addToArr(),getFinalDest(),getOtherSide(),dequeue(),enqueue(),addObstacle(),init_graph(),mainFun()
-* Global Variables: path[40],pathLen
+* Functions: addToArr(int [],int,int,int,int,int,int),getFinalDest(int,int []),getOtherSide(int,int),dequeue(int [],int,int),enqueue(int [],int,int,int),addObstacle(int,int),init_graph(),mainFun(int,int,int)
+* Global Variables: path[],pathLen
 */
+
 struct vertice;
 volatile int path[40],pathLen; //path for storing shortest distance, pathLen for storing length of path
 //In path, for each node, there will be 3 values - 1st value is node number, 2nd value is angle and 3rd value is distance
