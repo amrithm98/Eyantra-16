@@ -1,15 +1,33 @@
 struct vertice;
-volatile int path[40],pathLen;
+volatile int path[40],pathLen; //path for storing shortest distance, pathLen for storing length of path
+//In path, for each node, there will be 3 values - 1st value is node number, 2nd value is angle and 3rd value is distance
 int distance_Sharp=0;
 struct edge { int obstacle, angle, endA, endB, distance; };
-struct vertice { int n, x, y, edgeCount, edgePoints[6]; };
+struct vertice { int n, x, y, edgeCount, edgePoints[6]; }; //x,y are xy coordinates
 struct vertice verticeList[49];
 struct edge edgeList[63];
 
+/*
+* Function Name:	addToArr
+* Input:			finalDest[] (array to store final array), a, b, c, d, e, f (variables to store in array)
+* Output:			values will be stored to array
+* Logic:			Initialization
+* Example Call:		addToArr(finalDest[],1,2,3,4,5,6);
+*/
+
 void addToArr(int finalDest[], int a, int b, int c, int d, int e, int f) {
+	//a,b,c,d,e,f are elements to be stored in finalDest array
 	finalDest[0] = a; finalDest[1] = b; finalDest[2] = c;
 	finalDest[3] = d; finalDest[4] = e; finalDest[5] = f;
 }
+
+/*
+* Function Name:	getFinalDest
+* Input:			dest (MNP number), finalDest[] (array to store final array)
+* Output:			length of the resultant array will be returned after storing result in final array
+* Logic:			Store the values to array
+* Example Call:		getFinalDest(3,finalDest[]);
+*/
 
 int getFinalDest(int dest, int finalDest[]) {
 	if (dest < 25) {
@@ -31,28 +49,60 @@ int getFinalDest(int dest, int finalDest[]) {
 	return 0;
 }
 
+/*
+* Function Name:	getOtherSide
+* Input:			tempE (edge number), tempG (vertice number)
+* Output:			Other side of edge's vertice number will be returned
+* Logic:			Take the edge, if the one end is same as given vertice, return other vertice, else return current vertice
+* Example Call:		getOtherSide(1,1);
+*/
+
 int getOtherSide(int tempE, int tempG) {
 	if (edgeList[tempE].endA != tempG) return edgeList[tempE].endA;
 	return edgeList[tempE].endB;
 }
 
-void dequeue(int q[],int qLen,int n) {
-	int i;
+/*
+* Function Name:	dequeue
+* Input:			q[] (queue array), qLen (current length of queue), n (location to dequeue)
+* Output:			Element will be dequeued from the queue
+* Logic:			Normal dequeue logic
+* Example Call:		dequeue(q,5,3);
+*/
+
+void dequeue(int q[],int qLen,int n) { // n -> position to dequeue
+	int i; //for iteration
 	for (i = n; i < qLen-1; i++) {
 		q[i] = q[i+1];
 	}
 }
 
-void enqueue(int q[],int qLen,int n,int x) {
-	int i;
+/*
+* Function Name:	enqueue
+* Input:			q[] (queue array), qLen (current length of queue), n (location to enqueue), x (element to enqueue)
+* Output:			Element will be enqueued to the queue
+* Logic:			Normal enqueue logic
+* Example Call:		enqueue(q,5,3,23);
+*/
+
+void enqueue(int q[],int qLen,int n,int x) { // n -> position to enqueue, x -> element to enqueue
+	int i; //for iteration
 	for (i = qLen-1; i >= n; i--) {
 		q[i+1] = q[i];
 	}
 	q[n] = x;
 }
 
-void addObstacle(int a, int b) {
-	int i;
+/*
+* Function Name:	addObstacle
+* Input:			a & b (two vertices between which obstacle is detected)
+* Output:			The obstacle variable of the edge will be set to 1
+* Logic:			The edge will be searched by iterating through the edge list & the variable is set 1
+* Example Call:		addObstacle(1,24);
+*/
+
+void addObstacle(int a, int b) { //vertice numbers, the edge between whose is an obstacle
+	int i; //for iteration
 	a--; b--;
 	for (i = 0; i < 63; i++) {
 		if ((edgeList[i].endA==a && edgeList[i].endB==b) || (edgeList[i].endA==b && edgeList[i].endB==a))
@@ -60,7 +110,22 @@ void addObstacle(int a, int b) {
 	}
 }
 
+/*
+* Function Name:	init_graph
+* Input:			None
+* Output:			Initialize the track using Graph data structure
+* Logic:			The vertices are numbered from 0 to 48 and edges are numbered from 0 to 62
+*					Each vertice is assigned their x,y coordinates
+*					Each edge is assigned their end vertices, presence of obstacles (initially 0 for all edges) and distance
+* Example Call:		init_graph();
+*/
+
 void init_graph() {
+	//verticeXY -> XY coordinates of all vertices
+	//edgeEnds -> The end points of every edge
+	//edgeAngles -> The angle with x-axis of each edge
+	//edgeDist -> The distance of the edge
+	//i -> for iteration
 	int verticeXY[98] = {57,275,63,219,84,169,117,121,164,89,216,65,271,59,328,63,381,88,426,125,463,168,480,221,489,276,480,330,458,384,425,425,381,458,328,484,273,489,214,485,161,461,116,428,83,382,63,333,116,223,146,278,114,329,147,167,209,167,241,217,206,272,240,112,397,164,333,166,302,115,429,225,397,277,336,276,304,223,430,329,305,439,334,382,398,386,241,437,214,382,240,333,302,328,145,382,271,275},
 	edgeEnds[126] = {1,2,1,24,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16,17,17,18,18,19,19,20,20,21,21,22,22,23,23,24,3,25,25,26,26,27,27,23,25,28,28,29,29,30,30,31,31,26,3,28,32,7,32,29,7,35,35,34,34,33,33,11,33,36,36,37,37,38,38,39,39,34,11,36,37,40,40,15,43,15,43,42,41,42,41,19,42,47,47,46,46,45,45,44,44,41,19,44,45,48,48,23,26,45,29,34,37,42},
 	edgeAngles[63] = {82,-82,67,52,37,22,7,-7,-22,-37,-52,-67,-82,-97,-112,-127,-142,-157,-172,172,157,142,127,112,-60,-60,-120,-120,60,0,-60,-120,180,0,60,-120,-60,-60,0,0,-60,-120,180,120,60,-120,-60,-60,0,180,60,-120,120,180,-120,-60,0,120,180,180,-60,0,-120},
@@ -83,9 +148,20 @@ void init_graph() {
 	}
 }
 
+/*
+* Function Name:	mainFun
+* Input:			src (vertice number), dest (MNP number), compass (angle of bot with respect to x axis)
+* Output:			It will store the shortest path from src to dest in global array path
+* Logic:			Breadth First Search Algorithm is used to find the shortest distance
+* Example Call:		mainFun(1,28,0);
+*/
+
 void mainFun(int src,int dest,int compass) {
 	int i, j, x, y, z = -1, finalDest[6], finalDestCount, prevPts[49], dist[49], q[50], qLen;
-	struct vertice tempV;
+	//q[] for queue and qLen for queue length
+	//x, y, z are temporary variables which have multiple functions
+	//i & j for iteration
+	struct vertice tempV; //used for temporary vertice
 	finalDestCount = getFinalDest(dest,finalDest);
 	for (i = 0; i < 49; i++) prevPts[i] = -1;
 	for (i = 0; i < 49; i++) dist[i] = 20000;
