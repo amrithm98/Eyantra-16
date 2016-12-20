@@ -17,7 +17,8 @@ encoder.o: ../encoder.c ../header.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/stdio.h \
   c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stdarg.h \
   c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stddef.h \
-  c:/winavr-20090313/lib/gcc/../../avr/include/stdlib.h ../graph.h
+  c:/winavr-20090313/lib/gcc/../../avr/include/stdlib.h \
+  c:/winavr-20090313/lib/gcc/../../avr/include/math.h ../graph.h
 
 ../header.h:
 
@@ -60,5 +61,7 @@ c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stdarg.h:
 c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stddef.h:
 
 c:/winavr-20090313/lib/gcc/../../avr/include/stdlib.h:
+
+c:/winavr-20090313/lib/gcc/../../avr/include/math.h:
 
 ../graph.h:

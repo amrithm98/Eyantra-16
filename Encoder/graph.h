@@ -3,8 +3,10 @@
 * Author List: Daniel James, Amrith M
 * Filename: graph.h
 * Theme: Bothoven
-* Functions: addToArr(int [],int,int,int,int,int,int),getFinalDest(int,int []),getOtherSide(int,int),dequeue(int [],int,int),enqueue(int [],int,int,int),addObstacle(int,int),init_graph(),mainFun(int,int,int)
-* Global Variables: path[],pathLen
+* Functions: addToArr(int [],int,int,int,int,int,int),getFinalDest(int,int []),getOtherSide(int,int),
+			 dequeue(int [],int,int),enqueue(int [],int,int,int),addObstacle(int,int),init_graph(),
+			 mainFun(int,int,int)
+* Global Variables: path[],pathLen,distance_Sharp
 */
 
 struct vertice;
