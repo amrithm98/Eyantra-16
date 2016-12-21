@@ -1,7 +1,7 @@
 
 /*
 * Team Id: 1320
-* Author List: Daniel James, Amrith M
+* Author List: Daniel James, Amrith M, Sarathchandran S, John Sebastian
 * Filename: header.h
 * Theme: Bothoven
 * Functions:  motion_pin_config(),buzzer_pin_config(),buzzer_on(),buzzer_off(),init_timer5(),Sharp_dist(int),lcd_port_config(),left_encoder_pin_config(),right_encoder_pin_config(),right_position_encoder_interrupt_init(),left_position_encoder_interrupt_init()

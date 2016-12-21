@@ -1,6 +1,6 @@
 /*
 * Team Id: 1320
-* Author List: Daniel James, Amrith M
+* Author List: Daniel James, Amrith M, Sarathchandran S, John Sebastian
 * Filename: graph.h
 * Theme: Bothoven
 * Functions: addToArr(int [],int,int,int,int,int,int),getFinalDest(int,int []),getOtherSide(int,int),
