@@ -9,8 +9,8 @@
 
 /********** We have defined many Global Variables and functions in other files as well. Please check it out if you don't find its definition here***/
 
-#include "header.h"			//Loads the Algorithm Program
-#include "graph.h"			//Loads the Program containing functions for robot control(It has other headerfiles as well)
+#include "header.h"			//Loads the Program containing functions for robot control(It has other headerfiles as well)
+#include "graph.h"			//Loads the Algorithm Program
 
 /*
 * Function Name:	printNsetDJ
@@ -110,7 +110,7 @@ int main(void)
 	//arr : Input String is stored in this array . Number 1 is added to every string 
 	//Compass : Current angle of robot w.r.t. X Axis
 	//last:	Holds the position of current node if an obstacle is detected on the path to next node
-	//shFlag:
+	//shFlag: Used to check whether obstacle is detected or not
 	//***** Robot is maintained at actual angle with the help of compass which stores tha angle it has turned****
 	init_devices();
 	init_graph();
@@ -125,8 +125,8 @@ int main(void)
 		printLCD1(last,arr[ii],compass);
 		velocity(MAX_VEL,MAX_VEL);    					// Set the speed to max velocity
 		/* path ARRAY
-		Sample Input :
-		Sample Output:
+		Sample Input : 1 29
+		Sample Output: 1 -82 20 2 15 19 3 67 23 28 0 22 29 0 45 34 
 		1st Element : MNP
 		2nd Element : Angle to be rotated
 		3rd Element	: Distance to be moved
@@ -171,7 +171,7 @@ int main(void)
 			velocity(MAX_VEL,MAX_VEL);
 			stop();
 
-			//Angle depends on battery charge & light conditions
+			//ANGLE DEPENDS ON BATTERY CHARGE & LIGHT CONDITIONS
 
 			//path[i+1] denotes angle to be turned
 
@@ -276,7 +276,7 @@ int main(void)
 			velocity(MAX_VEL,MAX_VEL);
 			if (shFlag == 1) break;					//Node Reached and there is obstacle in the next node
 		}
-		//ADD Comment HERE
+		//If shFlag is 1, then obstacle is detected
 		if (shFlag == 1) continue;
 		last = path[i];								//Stores current position
 		stop();
