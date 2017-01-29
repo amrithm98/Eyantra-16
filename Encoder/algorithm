@@ -1,0 +1,2 @@
+1. Master splits the array to both master and slave and send slave's share to it.
+2. Both starts travelling. If an obstacle is detected by any, both will stop at current or next node and recalculate the path.
