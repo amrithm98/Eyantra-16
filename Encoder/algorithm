@@ -8,10 +8,21 @@ Stack Functions
 	3. push() - push to top
 	4. isEmpty() - checks if is empty
 
+Description on pathStructure: It is itself a stack and each element represents the next node to reach and path to reach
+
 pathStructure (as a stack) {
-	mainPath : Next Main Path
-	subPaths[] : Path to next main path (as a stack)
+	mainPath : Next Main Node
+	subPaths[] : Path to next main node (as a stack)
 }
+
+Shared members:
+	1. musicNote -> Stack of the elements which has to be covered
+	2. pathStructure -> Path to be followed by Bot
+	3. pathStructureX -> Path to be followed by BotX
+	4. ready -> Is Bot ready to proceed further
+	5. readyX -> Is BotX ready to proceed further
+	6. node -> It represents the current node of Bot
+	7. nodeX -> It represents the current node of BotX
 
 Shared: musicNote, pathStructure, pathStructureX, ready, readyX, node, nodeX
 
