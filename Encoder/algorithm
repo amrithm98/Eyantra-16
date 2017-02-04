@@ -1,2 +1,113 @@
-1. Master splits the array to both master and slave and send slave's share to it.
-2. Both starts travelling. If an obstacle is detected by any, both will stop at current or next node and recalculate the path.
+START
+
+Two bots -> Bot & BotX
+
+Stack Functions
+	1. top() - view top element
+	2. pop() - pop top element
+	3. push() - push to top
+	4. isEmpty() - checks if is empty
+
+pathStructure (as a stack) {
+	mainPath : Next Main Path
+	subPaths[] : Path to next main path (as a stack)
+}
+
+Shared: musicNote, pathStructure, pathStructureX, ready, readyX, node, nodeX
+
+travellingAlgo {
+	while (!pathStructure.isEmpty()) {
+		while (!subPaths.isEmpty()) {
+			while (subPaths.top() == subPathsX.top()) {
+				if (ready == 0) {
+					readyX = 0;
+					while (ready == 0);
+					return;
+				}
+			}
+			if (ready == 0) {
+				readyX = 0;
+				while (ready == 0);
+				return;
+			}
+			Go to subPaths.top()
+			if (obstacle) {
+				readyX = 0
+				while (ready == 1);
+				setObstacle
+				newPathReq()
+				Return
+			}
+			node = subPath.top();
+			subPath.pop()
+		}
+		while (pathStructure.top() != musicNote.top()) {
+			if (ready == 0) {
+				readyX = 0;
+				while (ready == 0);
+				return;
+			}
+		}
+		beep
+		pathStructure.pop()
+		musicNote.pop()
+	}
+}
+
+travellingAlgoX {
+	while (!pathStructureX.isEmpty()) {
+		while (!subPathsX.isEmpty()) {
+			while (subPathsX.top() == subPaths.top()) {
+				if (readyX == 0) {
+					ready = 0;
+					while (readyX == 0);
+					return;
+				}
+			}
+			if (readyX == 0) {
+				ready = 0;
+				while (readyX == 0);
+				return;
+			}
+			Go to subPathsX.top()
+			if (obstacle) {
+				ready = 0
+				while (readyX == 1);
+				setObstacle
+				newPathReq()
+				Return
+			}
+			nodeX = subPathX.top();
+			subPathX.pop()
+		}
+		while (pathStructureX.top() != musicNote.top()) {
+			if (readyX == 0) {
+				ready = 0;
+				while (readyX == 0);
+				return;
+			}
+		}
+		beep
+		pathStructureX.pop()
+		musicNote.pop()
+	}
+}
+
+Main() {
+	readyX = 0
+	node = 0
+	nodeX = 12
+	newPathReq()
+	readyX = 1
+	ready = 1
+	while (!pathStructure.isEmpty())
+		travellingAlgo
+}
+
+MainX() {
+	while (readyX == 0);
+	while (!pathStructure.isEmpty())
+		travellingAlgo
+}
+
+END
