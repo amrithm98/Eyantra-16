@@ -1,13 +1,31 @@
 #include <stdio.h>
 #include "graph_temp.h"
 
+// Represents node position of other bot
 int nodeX;
 
 int main() {
-	int musicNodes[] = {1,7,29,26,18,24,13,30,16,20}, noteCount = 10,
-	mNotes[10], sNotes[10], mNoteCount, sNoteCount,
-	i, j, masterNode = 1, masterCompass = 0, slaveNode = 12, slaveCompass = 180, distM, distS, tempM, tempS;
+
+	// Initial values
+	int node = 0;
+	nodeX = 12;
+
+	// Permanent values
+	int musicNodes[] = {1,7,29,26,18,24,13,30,16,20}, noteCount = 10;
+
+	// Main Queue
+	int mainQueue[10];
+
+	// Local Queue
+	// will be updated later
+
+	// Required for operations
+
+	// Initialize graph
 	init_graph();
+
+	int mNotes[10], sNotes[10], mNoteCount, sNoteCount,
+	i, j, masterNode = 1, masterCompass = 0, slaveNode = 12, slaveCompass = 180, distM, distS, tempM, tempS;
 	distM = distS = mNoteCount = sNoteCount = 0;
 	for (i = 0; i < noteCount; i++) {
 		mainFun(masterNode, musicNodes[i], masterCompass, 1);
