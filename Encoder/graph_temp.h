@@ -10,13 +10,15 @@
 */
 
 struct vertice;
-volatile int path[40],pathLen; //path for storing shortest distance, pathLen for storing length of path
 //In path, for each node, there will be 3 values - 1st value is node number, 2nd value is angle and 3rd value is distance
 int distance_Sharp=0;
 struct edge { int obstacle, angle, endA, endB, distance; };
 struct vertice { int n, x, y, edgeCount, edgePoints[6]; }; //x,y are xy coordinates
+struct pathNode { int node, angle, distance; }; //user -> 1: Master, 0: Slave
 struct vertice verticeList[49];
 struct edge edgeList[63];
+struct pathNode pathM[40], pathS[40], path[40]; //path for storing shortest distance
+int pathLenM, pathLenS, pathLen; //pathLen for storing length of path
 
 /*
 * Function Name:	addToArr
@@ -167,12 +169,13 @@ void init_graph() {
 * Example Call:		mainFun(1,28,0);
 */
 
-void mainFun(int src,int dest,int compass) {
+void mainFun(int src,int dest,int compass, int user) {
 	int i, j, x, y, z = -1, finalDest[6], finalDestCount, prevPts[49], dist[49], q[50], qLen;
 	//q[] for queue and qLen for queue length
 	//x, y, z are temporary variables which have multiple functions
 	//i & j for iteration
 	struct vertice tempV; //used for temporary vertice
+	struct pathNode tempP;
 	finalDestCount = getFinalDest(dest,finalDest);
 	for (i = 0; i < 49; i++) prevPts[i] = -1;
 	for (i = 0; i < 49; i++) dist[i] = 20000;
@@ -206,33 +209,42 @@ void mainFun(int src,int dest,int compass) {
 			x = i;
 	}
 	z = finalDest[x] - 1;
-	pathLen = 0;
+	pathLen = 1;
+	path[0].node = finalDest[x];
 	while (prevPts[z] != -1) {
-		path[pathLen++] = z+1;
+		pathLen++;
 		tempV = verticeList[z];
 		for (i = 0; i < tempV.edgeCount; i++) {
 			x = tempV.edgePoints[i];
 			if (getOtherSide(x,z) == prevPts[z]) break;
 		}
-		path[pathLen++] = edgeList[x].distance;
-		if (z == edgeList[x].endA) path[pathLen++] = edgeList[x].angle + 180;
-		else path[pathLen++] = edgeList[x].angle;
-		if (path[pathLen-1] > 180) path[pathLen-1] -= 360;
-		else if (path[pathLen-1] <= -180) path[pathLen-1] +=360;
-		path[pathLen-1] = -path[pathLen-1];
+		path[pathLen-1].distance = edgeList[x].distance;
+		if (z == edgeList[x].endA) path[pathLen-1].angle = edgeList[x].angle + 180;
+		else path[pathLen-1].angle = edgeList[x].angle;
+		if (path[pathLen-1].angle > 180) path[pathLen-1].angle -= 360;
+		else if (path[pathLen-1].angle <= -180) path[pathLen-1].angle +=360;
+		path[pathLen-1].angle = -path[pathLen-1].angle;
 		z = prevPts[z];
+		path[pathLen-1].node = z+1;
 	}
-	path[pathLen++] = src;
+	path[pathLen++].node = src;
 	for (i = 0; i < pathLen/2; i++) {
-		x = path[i];
+		tempP = path[i];
 		path[i] = path[pathLen-i-1];
-		path[pathLen-i-1] = x;
+		path[pathLen-i-1] = tempP;
 	}
-	for (i = 1; i < pathLen; i+=3) {
-		x = path[i];
-		path[i] -= compass;
-		if (path[i] >= 180) path[i] -= 360;
-		else if (path[i] <= -180) path[i] += 360;
+	for (i = 1; i < pathLen; i++) {
+		x = path[i].angle;
+		path[i].angle -= compass;
+		if (path[i].angle >= 180) path[i].angle -= 360;
+		else if (path[i].angle <= -180) path[i].angle += 360;
 		compass = x;
+	}
+	if (user) {
+		for (i = 0; i < pathLen; i++) pathM[i] = path[i];
+		pathLenM = pathLen;
+	} else {
+		for (i = 0; i < pathLen; i++) pathS[i] = path[i];
+		pathLenS = pathLen;
 	}
 }
