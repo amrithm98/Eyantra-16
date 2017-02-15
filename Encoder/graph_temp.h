@@ -1,16 +1,4 @@
-/*
-* Team Id: 1320
-* Author List: Daniel James, Amrith M, Sarathchandran S, John Sebastian
-* Filename: graph.h
-* Theme: Bothoven
-* Functions: addToArr(int [],int,int,int,int,int,int),getFinalDest(int,int []),getOtherSide(int,int),
-			 dequeue(int [],int,int),enqueue(int [],int,int,int),addObstacle(int,int),init_graph(),
-			 mainFun(int,int,int)
-* Global Variables: path[],pathLen,distance_Sharp
-*/
-
 struct vertice;
-//In path, for each node, there will be 3 values - 1st value is node number, 2nd value is angle and 3rd value is distance
 int distance_Sharp=0;
 struct edge { int obstacle, angle, endA, endB, distance; };
 struct vertice { int n, x, y, edgeCount, edgePoints[6]; }; //x,y are xy coordinates
