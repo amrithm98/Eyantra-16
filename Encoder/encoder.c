@@ -7,37 +7,53 @@
 
 int completePath() {
 	int temp;
+	startBot();
 	while (pathLenA > 0) {
-		while (botA[pathLenA-1].subPathCount > 0) {
-			if (botA[pathLenA-1].subPath[ botA[pathLenA-1].subPathCount-1 ] == botBstat.node) {
-				stopBot();
-				while (botA[pathLenA-1].subPath[ botA[pathLenA-1].subPathCount-1 ] == botBstat.node);
+		pathLenA--;
+		while (botA[pathLenA].subPathCount > 0) {
+			botA[pathLenA].subPathCount--;
+			if (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
+				stopBot("Collision");
+				while (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
+					if (botAstat.ready == 0) {
+						stopBot("Obstacle");
+						botBstat.ready = 0;
+						while (botAstat.ready == 0);
+						return 0;
+					}
+				}
 				startBot();
 			}
 			if (botAstat.ready == 0) {
+				stopBot("Obstacle");
 				botBstat.ready = 0;
 				while (botAstat.ready == 0);
-				return;
+				return 0;
 			}
 			if (obstacleDetect()) {
-				setObstacle(botAstat.node, botA[pathLenA-1].subPath[ botA[pathLenA-1] ]);
+				setObstacle(botAstat.node, botA[pathLenA].subPath[ botA[pathLenA].subPathCount ]);
 				botBstat.ready = 0;
 				while (botAstat.ready == 1);
 				updatePaths();
 				return 0;
 			}
-			temp = node;
-			node = botA[pathLenA-1].subPath[ botA[pathLenA-1] ];
-			goFromTo(temp, node);
+			temp = botAstat.node;
+			botAstat.node = botA[pathLenA].subPath[ botA[pathLenA].subPathCount ];
+			goFromTo(temp, botAstat.node);
 		}
-		while (botA[pathLenA-1].nextNode != notes[noteCount-1]) {
+		while (botA[pathLenA].note != notes[noteCount-1]) {
 			if (botAstat.ready == 0) {
+				stopBot("Obstacle");
 				botBstat.ready = 0;
 				while (botAstat.ready == 0);
-				return;
+				return 0;
 			}
 		}
+		noteCount--;
+		playNote();
 	}
+	botAstat.ready = 2;
+	stopBot("Completed");
 	return 1;
 }
 
@@ -46,12 +62,12 @@ int main() {
 	// testPrintValues();
 	botBstat.ready = 0;
 	botAstat.node = 0;
-	botBstat.node = 12;
+	botBstat.node = 50;
 	updatePaths();
 	botAstat.ready = 1;
 	botBstat.ready = 1;
 	while (botAstat.ready != 2 || botBstat.ready != 2) {
-		while (botAstat.ready == 1 || botBstat.ready == 2);
+		while (botAstat.ready != 1 && botBstat.ready != 2);
 		while (!completePath());
 	}
 	return 0;
