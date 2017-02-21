@@ -41,14 +41,14 @@ int completePath() {
 			botAstat.node = botA[pathLenA].subPath[ botA[pathLenA].subPathCount ];
 			goFromTo(temp, botAstat.node);
 		}
-		while (botA[pathLenA].note != notes[noteCount-1]) {
-			if (botAstat.ready == 0) {
-				stopBot("Obstacle");
-				botBstat.ready = 0;
-				while (botAstat.ready == 0);
-				return 0;
-			}
-		}
+		// while (botA[pathLenA].note != notes[noteCount-1]) {
+		// 	if (botAstat.ready == 0) {
+		// 		stopBot("Obstacle");
+		// 		botBstat.ready = 0;
+		// 		while (botAstat.ready == 0);
+		// 		return 0;
+		// 	}
+		// }
 		noteCount--;
 		playNote();
 	}

@@ -1,14 +1,35 @@
 #include "algoFunctionsHelper.h"
 
 void updatePaths() {
-	int i, j = botAstat.node;
-	pathLenA = noteCount;
+	int i, j, k, a = botAstat.node, b = botBstat.node, x;
+	struct path temp;
+	j = k = 0;
 	for (i = noteCount - 1; i >=0; i--) {
 		printf("Adding note %d\n", notes[i]);
-		addPath(botA, i, j, notes[i]);
-		if (botA[i].subPathCount > 0)
-			j = botA[i].subPath[0];
+		addPath(botA, j, a, notes[i]);
+		addPath(botB, k, b, notes[i]);
+		if (botA[j].distance <= botB[k].distance) {
+			j++;
+			if (botA[j].subPathCount > 0)
+				a = botA[j].subPath[0];
+		} else {
+			k++;
+			if (botB[k].subPathCount > 0)
+				b = botB[k].subPath[0];
+		}
 	}
+	temp = botA[j-1];
+	for (i = j-2; i >=0 ; i--) {
+		botA[i+1] = botA[i];
+	}
+	botA[0] = temp;
+	temp = botB[k-1];
+	for (i = k-2; i >=0 ; i--) {
+		botB[i+1] = botB[i];
+	}
+	botB[0] = temp;
+	pathLenA = j;
+	pathLenB = k;
 	// addPath(botA, 0, 0, 20);
 	// pathLenA = 5;
 	// botA[4].nextNode = 1;

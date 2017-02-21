@@ -16,7 +16,7 @@ int notes[] = {20,16,30,13,24,18,26,29,7,1};
 int noteCount = 10;
 
 struct path {
-	int nextNode, note;
+	int nextNode, note, distance;
 	int subPath[40];
 	int subPathCount;
 } botA[10], botB[10];
