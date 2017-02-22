@@ -83,7 +83,7 @@ void addPath(struct path bot[], int pos, int src, int dest) {
 			x = i;
 	}
 	bot[pos].nextNode = dests[x];
-	bot[pos].distance = dist[x];
+	bot[pos].distance = dist[dests[x]];
 	for (i = dests[x], bot[pos].subPathCount = 0; prevNode[i] != -1; i = prevNode[i])
 		bot[pos].subPath[bot[pos].subPathCount++] = i;
 }

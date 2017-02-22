@@ -175,7 +175,7 @@ void mainFun(int src,int dest,int compass) {
 	struct vertice tempV; //used for temporary vertice
 	finalDestCount = getFinalDest(dest,finalDest);
 	for (i = 0; i < 49; i++) prevPts[i] = -1;
-	for (i = 0; i < 49; i++) dist[i] = 20000;
+	for (i = 0; i < 49; i++) dist[i] = 32767;
 	dist[src - 1] = 0;
 	qLen = 1; q[0] = src - 1;
 	while ( qLen>0 ) {

@@ -1,10 +1,10 @@
-void startBot() {
-	printf("Bot started\n");
+void startBot(char driver) {
+	printf("Bot %c started\n", driver);
 	sleep(1);
 }
 
-void stopBot(char reason[]) {
-	printf("Bot stopped, reason: %s\n", reason);
+void stopBot(char reason[], char driver) {
+	printf("%c Bot stopped, reason: %s\n", driver, reason);
 }
 
 int obstacleDetect() {
@@ -15,13 +15,12 @@ void setObstacle(int from, int to) {
 	//
 }
 
-void goFromTo(int from, int to) {
-	printf("Going from %d to %d\n", from, to);
+void goFromTo(int from, int to, char driver) {
+	printf("%c Going from %d to %d\n", driver, from, to);
 	botAstat.node = to;
 	sleep(1);
 }
 
-void playNote() {
-	printf("Note played\n");
-	sleep(1);
+void playNote(char driver) {
+	// sleep(1);
 }

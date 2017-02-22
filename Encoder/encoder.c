@@ -2,75 +2,161 @@
 #include "globalMembers.h"
 #include "initValues.h"
 #include "testPrintValues.h" // used only for debugging
+#include "shareFunctions.h"
 #include "algoFunctions.h"
 #include "botFunctions.h"
 
-int completePath() {
+int completePathA(char driver, char str[]) {
 	int temp;
-	startBot();
+	startBot(driver);
 	while (pathLenA > 0) {
 		pathLenA--;
 		while (botA[pathLenA].subPathCount > 0) {
 			botA[pathLenA].subPathCount--;
-			if (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
-				stopBot("Collision");
-				while (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
-					if (botAstat.ready == 0) {
-						stopBot("Obstacle");
-						botBstat.ready = 0;
-						while (botAstat.ready == 0);
-						return 0;
-					}
-				}
-				startBot();
-			}
-			if (botAstat.ready == 0) {
-				stopBot("Obstacle");
-				botBstat.ready = 0;
-				while (botAstat.ready == 0);
-				return 0;
-			}
+			// if (botAstat.ready == 0) {
+			// 	stopBot("Obstacle", driver);
+			// 	botBstat.ready = 0;
+			// 	while (botAstat.ready == 0);
+			// 	return 0;
+			// }
 			if (obstacleDetect()) {
 				setObstacle(botAstat.node, botA[pathLenA].subPath[ botA[pathLenA].subPathCount ]);
 				botBstat.ready = 0;
 				while (botAstat.ready == 1);
-				updatePaths();
+				updatePaths("test");
 				return 0;
 			}
 			temp = botAstat.node;
+			// printf("Status: Bot A %d Bot B %d\n", botA[pathLenA].subPath[ botA[pathLenA].subPathCount ], botBstat.node);
+			if (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
+				stopBot("Collision", driver);
+				while (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
+					// if (botAstat.ready == 0) {
+					// 	stopBot("Obstacle", driver);
+					// 	botBstat.ready = 0;
+					// 	while (botAstat.ready == 0);
+					// 	return 0;
+					// }
+					updateShareA(str);
+				}
+				startBot(driver);
+			}
 			botAstat.node = botA[pathLenA].subPath[ botA[pathLenA].subPathCount ];
-			goFromTo(temp, botAstat.node);
+			updateShareA(str);
+			goFromTo(temp, botAstat.node, driver);
 		}
-		// while (botA[pathLenA].note != notes[noteCount-1]) {
-		// 	if (botAstat.ready == 0) {
-		// 		stopBot("Obstacle");
-		// 		botBstat.ready = 0;
-		// 		while (botAstat.ready == 0);
-		// 		return 0;
-		// 	}
-		// }
+		while (botA[pathLenA].note != notes[noteCount-1]) {
+			// if (botAstat.ready == 0) {
+			// 	stopBot("Obstacle", driver);
+			// 	botBstat.ready = 0;
+			// 	while (botAstat.ready == 0);
+			// 	return 0;
+			// }
+			updateShareA(str);
+		}
+		printf("A played %d\n", notes[noteCount-1]);
 		noteCount--;
-		playNote();
+		playNote(driver);
+		str[2]++;
 	}
 	botAstat.ready = 2;
-	stopBot("Completed");
+	stopBot("Completed", driver);
+	return 1;
+}
+
+int completePathB(char driver, char str[]) {
+	int temp;
+	startBot(driver);
+	while (pathLenB > 0) {
+		pathLenB--;
+		while (botB[pathLenB].subPathCount > 0) {
+			updateShareB(str);
+			botB[pathLenB].subPathCount--;
+			// if (botBstat.ready == 0) {
+			// 	stopBot("Obstacle", driver);
+			// 	botBstat.ready = 0;
+			// 	while (botBstat.ready == 0);
+			// 	return 0;
+			// }
+			if (obstacleDetect()) {
+				setObstacle(botBstat.node, botB[pathLenB].subPath[ botB[pathLenB].subPathCount ]);
+				botBstat.ready = 0;
+				while (botBstat.ready == 1);
+				updatePaths("test");
+				return 0;
+			}
+			temp = botBstat.node;
+			// printf("Status: Bot A %d Bot B %d\n", botAstat.node, botB[pathLenB].subPath[ botB[pathLenB].subPathCount ]);
+			if (botB[pathLenB].subPath[ botB[pathLenB].subPathCount ] == botAstat.node) {
+				stopBot("Collision", driver);
+				while (botB[pathLenB].subPath[ botB[pathLenB].subPathCount ] == botBstat.node) {
+					// if (botBstat.ready == 0) {
+					// 	stopBot("Obstacle", driver);
+					// 	botBstat.ready = 0;
+					// 	while (botBstat.ready == 0);
+					// 	return 0;
+					// }
+					updateShareB(str);
+				}
+				startBot(driver);
+			}
+			botBstat.node = botB[pathLenB].subPath[ botB[pathLenB].subPathCount ];
+			updateShareB(str);
+			goFromTo(temp, botBstat.node, driver);
+		}
+		while (botB[pathLenB].note != notes[noteCount-1]) {
+			// if (botBstat.ready == 0) {
+			// 	stopBot("Obstacle", driver);
+			// 	botBstat.ready = 0;
+			// 	while (botBstat.ready == 0);
+			// 	return 0;
+			// }
+			updateShareB(str);
+		}
+		printf("B played %d\n", notes[noteCount-1]);
+		noteCount--;
+		playNote(driver);
+		str[6]++;
+	}
+	botBstat.ready = 2;
+	stopBot("Completed", driver);
 	return 1;
 }
 
 int main() {
-	initValues();
-	// testPrintValues();
-	botBstat.ready = 0;
-	botAstat.node = 0;
-	botBstat.node = 50;
-	updatePaths();
-	botAstat.ready = 1;
-	botBstat.ready = 1;
-	while (botAstat.ready != 2 || botBstat.ready != 2) {
-		while (botAstat.ready != 1 && botBstat.ready != 2);
-		while (!completePath());
+	int shmid;
+	pid_t pid,pid2;
+	int n;
+	char *str;
+	if((shmid = shmget(IPC_PRIVATE,10 * sizeof(char),0666))<0){
+		printf("error in creating shmid\n");
+		return 0;
 	}
-	return 0;
+	str = shmat(shmid, NULL, 0);
+	int p = fork();
+	if (p) {
+		initValues();
+		initShare(str);
+		updatePaths(str);
+		changeReadyA(str, 1);
+		changeReadyB(str, 1);
+		while (botAstat.ready != 2 || botBstat.ready != 2) {
+			while (botAstat.ready != 1 && botBstat.ready != 2);
+			while (!completePathA('A', str));
+		}
+		return 0;
+	} else {
+		initValues();
+		botBstat.node = 12;
+		do {
+			updateShareB(str);
+		} while (botBstat.ready == 0);
+		while (botAstat.ready != 2 || botBstat.ready != 2) {
+			while (botBstat.ready != 1 && botAstat.ready != 2);
+			while (!completePathB('B', str));
+		}
+		return 0;
+	}
 }
 
 // int printNsetDJ(void)
