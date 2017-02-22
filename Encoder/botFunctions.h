@@ -1,3 +1,7 @@
+#include "botVariables.h"
+#include "botPrints.h"
+#include "botFunctionsHelper.h"
+
 void startBot(char driver) {
 	printf("Bot %c started\n", driver);
 	sleep(1);

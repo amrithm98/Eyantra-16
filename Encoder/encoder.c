@@ -128,6 +128,7 @@ int main() {
 	pid_t pid,pid2;
 	int n;
 	char *str;
+	initBotDevices();
 	if((shmid = shmget(IPC_PRIVATE,10 * sizeof(char),0666))<0){
 		printf("error in creating shmid\n");
 		return 0;
