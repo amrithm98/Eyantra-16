@@ -4,11 +4,13 @@
 
 void startBot(char driver) {
 	printf("Bot %c started\n", driver);
+	moveForward();
 	sleep(1);
 }
 
 void stopBot(char reason[], char driver) {
 	printf("%c Bot stopped, reason: %s\n", driver, reason);
+	stop();
 }
 
 int obstacleDetect() {

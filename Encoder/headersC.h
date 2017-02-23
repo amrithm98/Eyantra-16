@@ -11,8 +11,6 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "lcd.c"
-#include <stdio.h>
-#include <stdlib.h>
 #include <math.h>		//Remove this if program doesn't run. 
 #define THRESHOLD 20
 //THRESHOLD : ADC Value decided as threshold for sensing black line. Value above threshold corresponds to a black line. Threshold may change for track and lighting
