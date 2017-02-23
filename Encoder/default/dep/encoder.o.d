@@ -1,8 +1,13 @@
-encoder.o: ../encoder.c ../header.h \
-  c:/winavr-20090313/lib/gcc/../../avr/include/avr/io.h \
-  c:/winavr-20090313/lib/gcc/../../avr/include/avr/sfr_defs.h \
+encoder.o: ../encoder.c ../headersC.h \
+  c:/winavr-20090313/lib/gcc/../../avr/include/stdio.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/inttypes.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/stdint.h \
+  c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stdarg.h \
+  c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stddef.h \
+  c:/winavr-20090313/lib/gcc/../../avr/include/stdlib.h \
+  c:/winavr-20090313/lib/gcc/../../avr/include/math.h \
+  c:/winavr-20090313/lib/gcc/../../avr/include/avr/io.h \
+  c:/winavr-20090313/lib/gcc/../../avr/include/avr/sfr_defs.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/avr/iom2560.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/avr/iomxx0_1.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/avr/portpins.h \
@@ -14,21 +19,30 @@ encoder.o: ../encoder.c ../header.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/util/delay.h \
   c:/winavr-20090313/lib/gcc/../../avr/include/util/delay_basic.h \
   ../lcd.c c:/winavr-20090313/lib/gcc/../../avr/include/avr/delay.h \
-  c:/winavr-20090313/lib/gcc/../../avr/include/stdio.h \
-  c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stdarg.h \
-  c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stddef.h \
-  c:/winavr-20090313/lib/gcc/../../avr/include/stdlib.h \
-  c:/winavr-20090313/lib/gcc/../../avr/include/math.h ../graph.h
+  ../globalMembers.h ../initValues.h ../testPrintValues.h \
+  ../shareFunctions.h ../algoFunctions.h ../algoFunctionsHelper.h \
+  ../botFunctions.h ../botVariables.h ../botPrints.h \
+  ../botFunctionsHelper.h
 
-../header.h:
+../headersC.h:
 
-c:/winavr-20090313/lib/gcc/../../avr/include/avr/io.h:
-
-c:/winavr-20090313/lib/gcc/../../avr/include/avr/sfr_defs.h:
+c:/winavr-20090313/lib/gcc/../../avr/include/stdio.h:
 
 c:/winavr-20090313/lib/gcc/../../avr/include/inttypes.h:
 
 c:/winavr-20090313/lib/gcc/../../avr/include/stdint.h:
+
+c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stdarg.h:
+
+c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stddef.h:
+
+c:/winavr-20090313/lib/gcc/../../avr/include/stdlib.h:
+
+c:/winavr-20090313/lib/gcc/../../avr/include/math.h:
+
+c:/winavr-20090313/lib/gcc/../../avr/include/avr/io.h:
+
+c:/winavr-20090313/lib/gcc/../../avr/include/avr/sfr_defs.h:
 
 c:/winavr-20090313/lib/gcc/../../avr/include/avr/iom2560.h:
 
@@ -54,14 +68,22 @@ c:/winavr-20090313/lib/gcc/../../avr/include/util/delay_basic.h:
 
 c:/winavr-20090313/lib/gcc/../../avr/include/avr/delay.h:
 
-c:/winavr-20090313/lib/gcc/../../avr/include/stdio.h:
+../globalMembers.h:
 
-c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stdarg.h:
+../initValues.h:
 
-c:\winavr-20090313\bin\../lib/gcc/avr/4.3.2/include/stddef.h:
+../testPrintValues.h:
 
-c:/winavr-20090313/lib/gcc/../../avr/include/stdlib.h:
+../shareFunctions.h:
 
-c:/winavr-20090313/lib/gcc/../../avr/include/math.h:
+../algoFunctions.h:
 
-../graph.h:
+../algoFunctionsHelper.h:
+
+../botFunctions.h:
+
+../botVariables.h:
+
+../botPrints.h:
+
+../botFunctionsHelper.h:

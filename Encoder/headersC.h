@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <unistd.h> // for sleep
-#include <sys/types.h> // for testing sharing
-#include <sys/ipc.h> // for testing sharing
-#include <sys/shm.h> // for testing sharing
+//#include <unistd.h> // for sleep
+//#include <sys/types.h> // for testing sharing
+//#include <sys/ipc.h> // for testing sharing
+//#include <sys/shm.h> // for testing sharing
 //For Bot
 #define F_CPU 14745600
 #include <avr/io.h>

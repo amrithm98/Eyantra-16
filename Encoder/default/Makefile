@@ -36,6 +36,9 @@ HEX_EEPROM_FLAGS += --set-section-flags=.eeprom="alloc,load"
 HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
+## Libraries
+LIBS = -lm 
+
 ## Objects that must be built in order to link
 OBJECTS = encoder.o 
 

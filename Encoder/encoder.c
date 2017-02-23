@@ -122,9 +122,8 @@ int completePathB(char driver, char str[]) {
 	stopBot("Completed", driver);
 	return 1;
 }
-
 int main() {
-	int shmid;
+/*	int shmid;
 	pid_t pid,pid2;
 	int n;
 	char *str;
@@ -157,7 +156,23 @@ int main() {
 			while (!completePathB('B', str));
 		}
 		return 0;
-	}
+	}*/
+	initBotDevices();
+	lcd_init();
+	//lcd_set_4bit();
+	lcd_print(2,5,121,3);
+	//startBot('A');
+	//_delay_ms(1000);
+	//stopBot("reason",'A');
+	rotateAngles(-90);
+	_delay_ms(1000);
+	rotateAngles(-30);
+	_delay_ms(1000);
+	rotateAngles(-360);
+	_delay_ms(1000);
+	rotateAngles(+60);
+	_delay_ms(1000);
+	stop();
 }
 
 // int printNsetDJ(void)
@@ -430,3 +445,4 @@ int main() {
 // 		}
 // 	}
 // }
+

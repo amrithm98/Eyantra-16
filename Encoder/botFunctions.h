@@ -5,7 +5,7 @@
 void startBot(char driver) {
 	printf("Bot %c started\n", driver);
 	moveForward();
-	sleep(1);
+//	sleep(1);
 }
 
 void stopBot(char reason[], char driver) {
@@ -24,7 +24,7 @@ void setObstacle(int from, int to) {
 void goFromTo(int from, int to, char driver) {
 	printf("%c Going from %d to %d\n", driver, from, to);
 	botAstat.node = to;
-	sleep(1);
+	//sleep(1);
 }
 
 void playNote(char driver) {

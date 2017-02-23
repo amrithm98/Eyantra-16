@@ -1,3 +1,5 @@
+volatile unsigned long int ShaftCountLeft = 0, ShaftCountRight = 0;
+volatile unsigned int Degrees; 
 void initBotDevices() {
 	cli();
 	DDRA = DDRA | 0x0F;
@@ -85,16 +87,21 @@ void rotateAngles(int degrees) {
 		moveLeft();
 		degrees = -degrees;
 	}
-	ReqdShaftCount = (float) Degrees/ 4.090; // division by resolution to get shaft count
+	ReqdShaftCount = (float) degrees/ 4.090; // division by resolution to get shaft count
 	ReqdShaftCountInt = (unsigned long int) ReqdShaftCount;
 	ShaftCountLeft = ShaftCountRight = 0;
-	while ((ShaftCountRight >= ReqdShaftCountInt) && (ShaftCountLeft >= ReqdShaftCountInt));
+	while ((ShaftCountRight <= ReqdShaftCountInt) && (ShaftCountLeft <= ReqdShaftCountInt))
+	{
+		lcd_print(1,1,ShaftCountRight,3);
+		lcd_print(2,1,ShaftCountLeft,3);
+	}
+	stop();
 }
 
 // ENCODER OPERATIONS
 
-ISR(INT5_vect) { ShaftCountLeft++; }
-ISR(INT4_vect) { ShaftCountRight++; }
+ISR(INT5_vect) { ShaftCountLeft++;}
+ISR(INT4_vect) { ShaftCountRight++;}
 
 // SENSOR
 
