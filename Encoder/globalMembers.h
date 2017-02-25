@@ -25,6 +25,7 @@ int pathLenA, pathLenB;
 struct botStatus {
 	int ready;
 	int node;
+	int compass;
 	int nextNode;
 } botAstat, botBstat;
 

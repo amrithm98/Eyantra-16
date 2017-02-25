@@ -43,7 +43,7 @@ int completePathA(char driver, char str[]) {
 			}
 			botAstat.node = botA[pathLenA].subPath[ botA[pathLenA].subPathCount ];
 			updateShareA(str);
-			goFromTo(temp, botAstat.node, driver);
+			goFromToA(temp, botAstat.node, driver);
 		}
 		while (botA[pathLenA].note != notes[noteCount-1]) {
 			// if (botAstat.ready == 0) {
@@ -102,7 +102,7 @@ int completePathB(char driver, char str[]) {
 			}
 			botBstat.node = botB[pathLenB].subPath[ botB[pathLenB].subPathCount ];
 			updateShareB(str);
-			goFromTo(temp, botBstat.node, driver);
+			goFromToB(temp, botBstat.node, driver);
 		}
 		while (botB[pathLenB].note != notes[noteCount-1]) {
 			// if (botBstat.ready == 0) {
@@ -123,11 +123,11 @@ int completePathB(char driver, char str[]) {
 	return 1;
 }
 int main() {
-/*	int shmid;
+	int shmid;
 	pid_t pid,pid2;
 	int n;
 	char *str;
-	initBotDevices();
+	// initBotDevices();
 	if((shmid = shmget(IPC_PRIVATE,10 * sizeof(char),0666))<0){
 		printf("error in creating shmid\n");
 		return 0;
@@ -140,6 +140,7 @@ int main() {
 		updatePaths(str);
 		changeReadyA(str, 1);
 		changeReadyB(str, 1);
+		botAstat.compass = 97;
 		while (botAstat.ready != 2 || botBstat.ready != 2) {
 			while (botAstat.ready != 1 && botBstat.ready != 2);
 			while (!completePathA('A', str));
@@ -147,6 +148,7 @@ int main() {
 		return 0;
 	} else {
 		initValues();
+		botBstat.compass = 83;
 		botBstat.node = 12;
 		do {
 			updateShareB(str);
@@ -156,23 +158,22 @@ int main() {
 			while (!completePathB('B', str));
 		}
 		return 0;
-	}*/
-	initBotDevices();
-	lcd_init();
-	//lcd_set_4bit();
-	lcd_print(2,5,121,3);
-	//startBot('A');
-	//_delay_ms(1000);
-	//stopBot("reason",'A');
-	rotateAngles(-90);
-	_delay_ms(1000);
-	rotateAngles(-30);
-	_delay_ms(1000);
-	rotateAngles(-360);
-	_delay_ms(1000);
-	rotateAngles(+60);
-	_delay_ms(1000);
-	stop();
+	}
+	// initBotDevices();
+	// lcd_init();
+	// lcd_print(2,5,121,3);
+	// //startBot('A');
+	// //_delay_ms(1000);
+	// //stopBot("reason",'A');
+	// rotateAngles(-90);
+	// _delay_ms(1000);
+	// rotateAngles(-30);
+	// _delay_ms(1000);
+	// rotateAngles(-360);
+	// _delay_ms(1000);
+	// rotateAngles(+60);
+	// _delay_ms(1000);
+	// stop();
 }
 
 // int printNsetDJ(void)
