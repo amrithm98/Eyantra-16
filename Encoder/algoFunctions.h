@@ -1,6 +1,6 @@
 #include "algoFunctionsHelper.h"
 
-void updatePaths(char share[]) {
+void updatePaths(char share[], char driver) {
 	int i, j, k, a = botAstat.node, b = botBstat.node, totalA, totalB, x;
 	struct path temp;
 	j = k = totalA = totalB = 0;
@@ -36,5 +36,8 @@ void updatePaths(char share[]) {
 	}
 	pathLenA = j;
 	pathLenB = k;
-	transferAB(share);
+	if (driver == 'A')
+		transferAB(share);
+	else
+		transferBA(share);
 }

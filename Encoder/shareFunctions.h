@@ -29,6 +29,37 @@ void receiveAB(char share[]) {
 	share[7] = 1;
 }
 
+void receiveBA(char share[]) {
+	int n, m, i, j;
+	share[7] = 3;
+	while (share[3] == 0);
+	pathLenA = share[7];
+	share[3] = 0;
+	n = pathLenA;
+	for (i = 0; i < n; i++) {
+		while (share[3] == 0);
+		botA[i].nextNode = share[7];
+		share[3] = 0;
+		while (share[3] == 0);
+		botA[i].note = share[7];
+		share[3] = 0;
+		while (share[3] == 0);
+		botA[i].distance = share[7];
+		share[3] = 0;
+		while (share[3] == 0);
+		botA[i].subPathCount = share[7];
+		share[3] = 0;
+		m = botA[i].subPathCount;
+		for (j = 0; j < m; j++) {
+			while (share[3] == 0);
+			botA[i].subPath[j] = share[7];
+			share[3] = 0;
+		}
+		while (share[3] == 0);
+	}
+	share[7] = 1;
+}
+
 void transferAB(char share[]) {
 	int i, j;
 	share[3] = 0;
@@ -59,6 +90,36 @@ void transferAB(char share[]) {
 	share[3] = 1;
 }
 
+void transferBA(char share[]) {
+	int i, j;
+	share[3] = 0;
+	share[7] = 2;
+	while (share[7] != 3);
+	share[7] = pathLenA;
+	share[3] = 1;
+	while (share[3] == 1);
+	for (i = 0; i < pathLenA; i++) {
+		share[7] = botA[i].nextNode;
+		share[3] = 1;
+		while (share[3] == 1);
+		share[7] = botA[i].note;
+		share[3] = 1;
+		while (share[3] == 1);
+		share[7] = botA[i].distance;
+		share[3] = 1;
+		while (share[3] == 1);
+		share[7] = botA[i].subPathCount;
+		share[3] = 1;
+		while (share[3] == 1);
+		for (j = 0; j < botA[i].subPathCount; j++) {
+			share[7] = botA[i].subPath[j];
+			share[3] = 1;
+			while (share[3] == 1);
+		}
+	}
+	share[3] = 1;
+}
+
 void initShare(char share[]) {
 	share[0] = 0; botAstat.node = 0;
 	share[1] = 0; botAstat.ready = 0;
@@ -80,6 +141,8 @@ void updateShareA(char share[]) {
 			noteCount -= share[6];
 			share[6] = 0;
 		}
+	} else if (share[7] == 2) {
+		receiveBA(share);
 	}
 }
 

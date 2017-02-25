@@ -19,31 +19,29 @@ int completePathA(char driver, char str[]) {
 			// 	while (botAstat.ready == 0);
 			// 	return 0;
 			// }
-			if (obstacleDetect()) {
-				setObstacle(botAstat.node, botA[pathLenA].subPath[ botA[pathLenA].subPathCount ]);
-				botBstat.ready = 0;
-				while (botAstat.ready == 1);
-				updatePaths("test");
-				return 0;
-			}
 			temp = botAstat.node;
 			// printf("Status: Bot A %d Bot B %d\n", botA[pathLenA].subPath[ botA[pathLenA].subPathCount ], botBstat.node);
-			if (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
-				stopBot("Collision", driver);
-				while (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
-					// if (botAstat.ready == 0) {
-					// 	stopBot("Obstacle", driver);
-					// 	botBstat.ready = 0;
-					// 	while (botAstat.ready == 0);
-					// 	return 0;
-					// }
-					updateShareA(str);
-				}
-				startBot(driver);
+			// if (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
+			// 	stopBot("Collision", driver);
+			// 	while (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
+			// 		// if (botAstat.ready == 0) {
+			// 		// 	stopBot("Obstacle", driver);
+			// 		// 	botBstat.ready = 0;
+			// 		// 	while (botAstat.ready == 0);
+			// 		// 	return 0;
+			// 		// }
+			// 		updateShareA(str);
+			// 	}
+			// 	startBot(driver);
+			// }
+			// botAstat.node = botA[pathLenA].subPath[ botA[pathLenA].subPathCount ];
+			// updateShareA(str);
+			if (!goFromToA(temp, botA[pathLenA].subPath[ botA[pathLenA].subPathCount ], driver, str)) {
+				botBstat.ready = 0;
+				while (botBstat.ready == 1);
+				updatePaths("test", 'A');
+				return 0;
 			}
-			botAstat.node = botA[pathLenA].subPath[ botA[pathLenA].subPathCount ];
-			updateShareA(str);
-			goFromToA(temp, botAstat.node, driver);
 		}
 		while (botA[pathLenA].note != notes[noteCount-1]) {
 			// if (botAstat.ready == 0) {
@@ -70,7 +68,7 @@ int completePathB(char driver, char str[]) {
 	while (pathLenB > 0) {
 		pathLenB--;
 		while (botB[pathLenB].subPathCount > 0) {
-			updateShareB(str);
+			// updateShareB(str);
 			botB[pathLenB].subPathCount--;
 			// if (botBstat.ready == 0) {
 			// 	stopBot("Obstacle", driver);
@@ -78,31 +76,34 @@ int completePathB(char driver, char str[]) {
 			// 	while (botBstat.ready == 0);
 			// 	return 0;
 			// }
-			if (obstacleDetect()) {
-				setObstacle(botBstat.node, botB[pathLenB].subPath[ botB[pathLenB].subPathCount ]);
-				botBstat.ready = 0;
-				while (botBstat.ready == 1);
-				updatePaths("test");
-				return 0;
-			}
+			// if (obstacleDetect()) {
+			// 	setObstacle(botBstat.node, botB[pathLenB].subPath[ botB[pathLenB].subPathCount ]);
+			// 	botBstat.ready = 0;
+			// 	while (botBstat.ready == 1);
+			// 	updatePaths("test");
+			// 	return 0;
+			// }
 			temp = botBstat.node;
 			// printf("Status: Bot A %d Bot B %d\n", botAstat.node, botB[pathLenB].subPath[ botB[pathLenB].subPathCount ]);
-			if (botB[pathLenB].subPath[ botB[pathLenB].subPathCount ] == botAstat.node) {
-				stopBot("Collision", driver);
-				while (botB[pathLenB].subPath[ botB[pathLenB].subPathCount ] == botBstat.node) {
+			// if (botB[pathLenB].subPath[ botB[pathLenB].subPathCount ] == botAstat.node) {
+			// 	stopBot("Collision", driver);
+			// 	while (botB[pathLenB].subPath[ botB[pathLenB].subPathCount ] == botBstat.node) {
 					// if (botBstat.ready == 0) {
 					// 	stopBot("Obstacle", driver);
 					// 	botBstat.ready = 0;
 					// 	while (botBstat.ready == 0);
 					// 	return 0;
 					// }
-					updateShareB(str);
-				}
-				startBot(driver);
+				// 	updateShareB(str);
+				// }
+				// startBot(driver);
+			// }
+			if (!goFromToB(temp, botB[pathLenB].subPath[ botB[pathLenB].subPathCount ], driver, str)) {
+				botAstat.ready = 0;
+				while (botAstat.ready == 1);
+				updatePaths("test", 'B');
+				return 0;
 			}
-			botBstat.node = botB[pathLenB].subPath[ botB[pathLenB].subPathCount ];
-			updateShareB(str);
-			goFromToB(temp, botBstat.node, driver);
 		}
 		while (botB[pathLenB].note != notes[noteCount-1]) {
 			// if (botBstat.ready == 0) {
@@ -137,7 +138,7 @@ int main() {
 	if (p) {
 		initValues();
 		initShare(str);
-		updatePaths(str);
+		updatePaths(str, 'A');
 		changeReadyA(str, 1);
 		changeReadyB(str, 1);
 		botAstat.compass = 97;

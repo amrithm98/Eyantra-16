@@ -14,6 +14,7 @@ struct edges {
 
 int notes[] = {20,16,30,13,24,18,29,26,8,6};//{20,16,30,13,24,18,26,29,7,1};
 int noteCount = 10;
+int botDistance = 20;
 
 struct path {
 	int nextNode, note, distance;
