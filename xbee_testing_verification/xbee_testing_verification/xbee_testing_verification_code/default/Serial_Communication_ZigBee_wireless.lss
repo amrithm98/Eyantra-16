@@ -1,0 +1,347 @@
+
+Serial_Communication_ZigBee_wireless.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000025e  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000001  00800200  00800200  000002d2  2**0
+                  ALLOC
+  2 .debug_aranges 00000020  00000000  00000000  000002d2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_pubnames 00000073  00000000  00000000  000002f2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   000000eb  00000000  00000000  00000365  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 0000007a  00000000  00000000  00000450  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   0000016e  00000000  00000000  000004ca  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  00000070  00000000  00000000  00000638  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    00000130  00000000  00000000  000006a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 72 00 	jmp	0xe4	; 0xe4 <__ctors_end>
+   4:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+   8:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+   c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  10:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  14:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  18:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  1c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  20:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  24:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  28:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  2c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  30:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  34:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  38:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  3c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  40:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  44:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  48:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  4c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  50:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  54:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  58:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  5c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  60:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  64:	0c 94 cd 00 	jmp	0x19a	; 0x19a <__vector_25>
+  68:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  6c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  70:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  74:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  78:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  7c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  80:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  84:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  88:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  8c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  90:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  94:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  98:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  9c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  a0:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  a4:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  a8:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  ac:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  b0:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  b4:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  b8:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  bc:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  c0:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  c4:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  c8:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  cc:	0c 94 f3 00 	jmp	0x1e6	; 0x1e6 <__vector_51>
+  d0:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  d4:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  d8:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  dc:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  e0:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+
+000000e4 <__ctors_end>:
+  e4:	11 24       	eor	r1, r1
+  e6:	1f be       	out	0x3f, r1	; 63
+  e8:	cf ef       	ldi	r28, 0xFF	; 255
+  ea:	d1 e2       	ldi	r29, 0x21	; 33
+  ec:	de bf       	out	0x3e, r29	; 62
+  ee:	cd bf       	out	0x3d, r28	; 61
+  f0:	00 e0       	ldi	r16, 0x00	; 0
+  f2:	0c bf       	out	0x3c, r16	; 60
+
+000000f4 <__do_copy_data>:
+  f4:	12 e0       	ldi	r17, 0x02	; 2
+  f6:	a0 e0       	ldi	r26, 0x00	; 0
+  f8:	b2 e0       	ldi	r27, 0x02	; 2
+  fa:	ee e5       	ldi	r30, 0x5E	; 94
+  fc:	f2 e0       	ldi	r31, 0x02	; 2
+  fe:	00 e0       	ldi	r16, 0x00	; 0
+ 100:	0b bf       	out	0x3b, r16	; 59
+ 102:	02 c0       	rjmp	.+4      	; 0x108 <__do_copy_data+0x14>
+ 104:	07 90       	elpm	r0, Z+
+ 106:	0d 92       	st	X+, r0
+ 108:	a0 30       	cpi	r26, 0x00	; 0
+ 10a:	b1 07       	cpc	r27, r17
+ 10c:	d9 f7       	brne	.-10     	; 0x104 <__do_copy_data+0x10>
+
+0000010e <__do_clear_bss>:
+ 10e:	12 e0       	ldi	r17, 0x02	; 2
+ 110:	a0 e0       	ldi	r26, 0x00	; 0
+ 112:	b2 e0       	ldi	r27, 0x02	; 2
+ 114:	01 c0       	rjmp	.+2      	; 0x118 <.do_clear_bss_start>
+
+00000116 <.do_clear_bss_loop>:
+ 116:	1d 92       	st	X+, r1
+
+00000118 <.do_clear_bss_start>:
+ 118:	a1 30       	cpi	r26, 0x01	; 1
+ 11a:	b1 07       	cpc	r27, r17
+ 11c:	e1 f7       	brne	.-8      	; 0x116 <.do_clear_bss_loop>
+ 11e:	0e 94 26 01 	call	0x24c	; 0x24c <main>
+ 122:	0c 94 2d 01 	jmp	0x25a	; 0x25a <_exit>
+
+00000126 <__bad_interrupt>:
+ 126:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000012a <uart0_init>:
+// desired baud rate:9600
+// actual baud rate:9600 (error 0.0%)
+// char size: 8 bit
+// parity: Disabled
+void uart0_init(void)
+{
+ 12a:	df 93       	push	r29
+ 12c:	cf 93       	push	r28
+ 12e:	cd b7       	in	r28, 0x3d	; 61
+ 130:	de b7       	in	r29, 0x3e	; 62
+ UCSR0B = 0x00; //disable while setting baud rate
+ 132:	e1 ec       	ldi	r30, 0xC1	; 193
+ 134:	f0 e0       	ldi	r31, 0x00	; 0
+ 136:	10 82       	st	Z, r1
+ UCSR0A = 0x00;
+ 138:	e0 ec       	ldi	r30, 0xC0	; 192
+ 13a:	f0 e0       	ldi	r31, 0x00	; 0
+ 13c:	10 82       	st	Z, r1
+ UCSR0C = 0x06;
+ 13e:	e2 ec       	ldi	r30, 0xC2	; 194
+ 140:	f0 e0       	ldi	r31, 0x00	; 0
+ 142:	86 e0       	ldi	r24, 0x06	; 6
+ 144:	80 83       	st	Z, r24
+ UBRR0L = 0x5F; //set baud rate lo
+ 146:	e4 ec       	ldi	r30, 0xC4	; 196
+ 148:	f0 e0       	ldi	r31, 0x00	; 0
+ 14a:	8f e5       	ldi	r24, 0x5F	; 95
+ 14c:	80 83       	st	Z, r24
+ UBRR0H = 0x00; //set baud rate hi
+ 14e:	e5 ec       	ldi	r30, 0xC5	; 197
+ 150:	f0 e0       	ldi	r31, 0x00	; 0
+ 152:	10 82       	st	Z, r1
+ UCSR0B = 0x98;
+ 154:	e1 ec       	ldi	r30, 0xC1	; 193
+ 156:	f0 e0       	ldi	r31, 0x00	; 0
+ 158:	88 e9       	ldi	r24, 0x98	; 152
+ 15a:	80 83       	st	Z, r24
+}
+ 15c:	cf 91       	pop	r28
+ 15e:	df 91       	pop	r29
+ 160:	08 95       	ret
+
+00000162 <uart2_init>:
+// desired baud rate:9600
+// actual baud rate:9600 (error 0.0%)
+// char size: 8 bit
+// parity: Disabled
+void uart2_init(void)
+{
+ 162:	df 93       	push	r29
+ 164:	cf 93       	push	r28
+ 166:	cd b7       	in	r28, 0x3d	; 61
+ 168:	de b7       	in	r29, 0x3e	; 62
+ UCSR2B = 0x00; //disable while setting baud rate
+ 16a:	e1 ed       	ldi	r30, 0xD1	; 209
+ 16c:	f0 e0       	ldi	r31, 0x00	; 0
+ 16e:	10 82       	st	Z, r1
+ UCSR2A = 0x00;
+ 170:	e0 ed       	ldi	r30, 0xD0	; 208
+ 172:	f0 e0       	ldi	r31, 0x00	; 0
+ 174:	10 82       	st	Z, r1
+ UCSR2C = 0x06;
+ 176:	e2 ed       	ldi	r30, 0xD2	; 210
+ 178:	f0 e0       	ldi	r31, 0x00	; 0
+ 17a:	86 e0       	ldi	r24, 0x06	; 6
+ 17c:	80 83       	st	Z, r24
+ UBRR2L = 0x5F; //set baud rate lo
+ 17e:	e4 ed       	ldi	r30, 0xD4	; 212
+ 180:	f0 e0       	ldi	r31, 0x00	; 0
+ 182:	8f e5       	ldi	r24, 0x5F	; 95
+ 184:	80 83       	st	Z, r24
+ UBRR2H = 0x00; //set baud rate hi
+ 186:	e5 ed       	ldi	r30, 0xD5	; 213
+ 188:	f0 e0       	ldi	r31, 0x00	; 0
+ 18a:	10 82       	st	Z, r1
+ UCSR2B = 0x98;
+ 18c:	e1 ed       	ldi	r30, 0xD1	; 209
+ 18e:	f0 e0       	ldi	r31, 0x00	; 0
+ 190:	88 e9       	ldi	r24, 0x98	; 152
+ 192:	80 83       	st	Z, r24
+}
+ 194:	cf 91       	pop	r28
+ 196:	df 91       	pop	r29
+ 198:	08 95       	ret
+
+0000019a <__vector_25>:
+
+
+SIGNAL(SIG_USART0_RECV) 		// ISR for receive complete interrupt
+{
+ 19a:	1f 92       	push	r1
+ 19c:	0f 92       	push	r0
+ 19e:	0f b6       	in	r0, 0x3f	; 63
+ 1a0:	0f 92       	push	r0
+ 1a2:	00 90 5b 00 	lds	r0, 0x005B
+ 1a6:	0f 92       	push	r0
+ 1a8:	11 24       	eor	r1, r1
+ 1aa:	8f 93       	push	r24
+ 1ac:	ef 93       	push	r30
+ 1ae:	ff 93       	push	r31
+ 1b0:	df 93       	push	r29
+ 1b2:	cf 93       	push	r28
+ 1b4:	cd b7       	in	r28, 0x3d	; 61
+ 1b6:	de b7       	in	r29, 0x3e	; 62
+	data = UDR0; 				//making copy of data from UDR0 in 'data' variable 
+ 1b8:	e6 ec       	ldi	r30, 0xC6	; 198
+ 1ba:	f0 e0       	ldi	r31, 0x00	; 0
+ 1bc:	80 81       	ld	r24, Z
+ 1be:	80 93 00 02 	sts	0x0200, r24
+
+	UDR2 = data; 				//echo data back to PC
+ 1c2:	e6 ed       	ldi	r30, 0xD6	; 214
+ 1c4:	f0 e0       	ldi	r31, 0x00	; 0
+ 1c6:	80 91 00 02 	lds	r24, 0x0200
+ 1ca:	80 83       	st	Z, r24
+
+}
+ 1cc:	cf 91       	pop	r28
+ 1ce:	df 91       	pop	r29
+ 1d0:	ff 91       	pop	r31
+ 1d2:	ef 91       	pop	r30
+ 1d4:	8f 91       	pop	r24
+ 1d6:	0f 90       	pop	r0
+ 1d8:	00 92 5b 00 	sts	0x005B, r0
+ 1dc:	0f 90       	pop	r0
+ 1de:	0f be       	out	0x3f, r0	; 63
+ 1e0:	0f 90       	pop	r0
+ 1e2:	1f 90       	pop	r1
+ 1e4:	18 95       	reti
+
+000001e6 <__vector_51>:
+
+
+SIGNAL(SIG_USART2_RECV) 		// ISR for receive complete interrupt
+{
+ 1e6:	1f 92       	push	r1
+ 1e8:	0f 92       	push	r0
+ 1ea:	0f b6       	in	r0, 0x3f	; 63
+ 1ec:	0f 92       	push	r0
+ 1ee:	00 90 5b 00 	lds	r0, 0x005B
+ 1f2:	0f 92       	push	r0
+ 1f4:	11 24       	eor	r1, r1
+ 1f6:	8f 93       	push	r24
+ 1f8:	ef 93       	push	r30
+ 1fa:	ff 93       	push	r31
+ 1fc:	df 93       	push	r29
+ 1fe:	cf 93       	push	r28
+ 200:	cd b7       	in	r28, 0x3d	; 61
+ 202:	de b7       	in	r29, 0x3e	; 62
+	data = UDR2; 				//making copy of data from UDR0 in 'data' variable 
+ 204:	e6 ed       	ldi	r30, 0xD6	; 214
+ 206:	f0 e0       	ldi	r31, 0x00	; 0
+ 208:	80 81       	ld	r24, Z
+ 20a:	80 93 00 02 	sts	0x0200, r24
+
+	UDR0 = data; 				//echo data back to PC
+ 20e:	e6 ec       	ldi	r30, 0xC6	; 198
+ 210:	f0 e0       	ldi	r31, 0x00	; 0
+ 212:	80 91 00 02 	lds	r24, 0x0200
+ 216:	80 83       	st	Z, r24
+
+}
+ 218:	cf 91       	pop	r28
+ 21a:	df 91       	pop	r29
+ 21c:	ff 91       	pop	r31
+ 21e:	ef 91       	pop	r30
+ 220:	8f 91       	pop	r24
+ 222:	0f 90       	pop	r0
+ 224:	00 92 5b 00 	sts	0x005B, r0
+ 228:	0f 90       	pop	r0
+ 22a:	0f be       	out	0x3f, r0	; 63
+ 22c:	0f 90       	pop	r0
+ 22e:	1f 90       	pop	r1
+ 230:	18 95       	reti
+
+00000232 <init_devices>:
+
+
+
+//Function To Initialize all The Devices
+void init_devices()
+{
+ 232:	df 93       	push	r29
+ 234:	cf 93       	push	r28
+ 236:	cd b7       	in	r28, 0x3d	; 61
+ 238:	de b7       	in	r29, 0x3e	; 62
+ cli(); //Clears the global interrupts
+ 23a:	f8 94       	cli
+ uart0_init(); //Initailize UART0 for serial communiaction
+ 23c:	0e 94 95 00 	call	0x12a	; 0x12a <uart0_init>
+ uart2_init(); //Initailize UART1 for serial communiaction
+ 240:	0e 94 b1 00 	call	0x162	; 0x162 <uart2_init>
+ sei();   //Enables the global interrupts
+ 244:	78 94       	sei
+}
+ 246:	cf 91       	pop	r28
+ 248:	df 91       	pop	r29
+ 24a:	08 95       	ret
+
+0000024c <main>:
+
+//Main Function
+int main(void)
+{
+ 24c:	df 93       	push	r29
+ 24e:	cf 93       	push	r28
+ 250:	cd b7       	in	r28, 0x3d	; 61
+ 252:	de b7       	in	r29, 0x3e	; 62
+	init_devices();
+ 254:	0e 94 19 01 	call	0x232	; 0x232 <init_devices>
+ 258:	ff cf       	rjmp	.-2      	; 0x258 <main+0xc>
+
+0000025a <_exit>:
+ 25a:	f8 94       	cli
+
+0000025c <__stop_program>:
+ 25c:	ff cf       	rjmp	.-2      	; 0x25c <__stop_program>
