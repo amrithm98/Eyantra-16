@@ -19,19 +19,21 @@ int completePathA(char driver) {
 			// }
 			// temp = botAstat.node;
 			// printf("Status: Bot A %d Bot B %d\n", botA[pathLenA].subPath[ botA[pathLenA].subPathCount ], botBstat.node);
-			// if (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
-			// 	stopBot("Collision", driver);
-			// 	while (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
-			// 		// if (botAstat.ready == 0) {
-			// 		// 	stopBot("Obstacle", driver);
-			// 		// 	botBstat.ready = 0;
-			// 		// 	while (botAstat.ready == 0);
-			// 		// 	return 0;
-			// 		// }
-			// 		updateShareA(str);
-			// 	}
-			// 	startBot(driver);
-			// }
+			if (botA[pathLenA-1].subPath[ botA[pathLenA-1].subPathCount - 1 ] == botB[pathLenB-1].subPath[ botB[pathLenB-1].subPathCount - 1 ]) {
+				stopBot("Collision", driver);
+				printf("%d is pathLenB\n", pathLenB);
+				printf("Collision %d %d\n", botA[pathLenA-1].subPath[ botA[pathLenA-1].subPathCount - 1 ], botB[pathLenB-1].subPath[ botB[pathLenB-1].subPathCount - 1 ]);
+				while (botA[pathLenA-1].subPath[ botA[pathLenA-1].subPathCount - 1 ] == botB[pathLenB-1].subPath[ botB[pathLenB-1].subPathCount - 1 ]) {
+					// if (botAstat.ready == 0) {
+					// 	stopBot("Obstacle", driver);
+					// 	botBstat.ready = 0;
+					// 	while (botAstat.ready == 0);
+					// 	return 0;
+					// }
+					updateShareA();
+				}
+				startBot(driver);
+			}
 			// botAstat.node = botA[pathLenA].subPath[ botA[pathLenA].subPathCount ];
 			// updateShareA(str);
 			if (!goFromToA(botAstat.node, botA[pathLenA-1].subPath[ botA[pathLenA-1].subPathCount - 1 ])) {
@@ -72,19 +74,21 @@ int completePathB(char driver) {
 			// }
 			// temp = botAstat.node;
 			// printf("Status: Bot A %d Bot B %d\n", botA[pathLenA].subPath[ botA[pathLenA].subPathCount ], botBstat.node);
-			// if (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
-			// 	stopBot("Collision", driver);
-			// 	while (botA[pathLenA].subPath[ botA[pathLenA].subPathCount ] == botBstat.node) {
-			// 		// if (botAstat.ready == 0) {
-			// 		// 	stopBot("Obstacle", driver);
-			// 		// 	botBstat.ready = 0;
-			// 		// 	while (botAstat.ready == 0);
-			// 		// 	return 0;
-			// 		// }
-			// 		updateShareA(str);
-			// 	}
-			// 	startBot(driver);
-			// }
+			printf("A pathLen = %d subPathCount = %d\n", pathLenA, botA[pathLenA-1].subPathCount);
+			printf("A is going to %d and B is going to %d\n", botA[pathLenA-1].subPath[ botA[pathLenA-1].subPathCount - 1 ], botB[pathLenB-1].subPath[ botB[pathLenB-1].subPathCount - 1 ]);
+			if (botA[pathLenA-1].subPath[ botA[pathLenA-1].subPathCount - 1 ] == botB[pathLenB-1].subPath[ botB[pathLenB-1].subPathCount - 1 ]) {
+				stopBot("Collision", driver);
+				while (botA[pathLenA-1].subPath[ botA[pathLenA-1].subPathCount - 1 ] == botB[pathLenB-1].subPath[ botB[pathLenB-1].subPathCount - 1 ]) {
+					// if (botAstat.ready == 0) {
+					// 	stopBot("Obstacle", driver);
+					// 	botBstat.ready = 0;
+					// 	while (botAstat.ready == 0);
+					// 	return 0;
+					// }
+					updateShareB();
+				}
+				startBot(driver);
+			}
 			// botAstat.node = botA[pathLenA].subPath[ botA[pathLenA].subPathCount ];
 			// updateShareA(str);
 			if (!goFromToB(botBstat.node, botB[pathLenB-1].subPath[ botB[pathLenB-1].subPathCount - 1 ])) {
@@ -127,6 +131,7 @@ int main() {
 		initValues();
 		share = 0;
 		botAstat.node = 0;
+		botBstat.node = 12;
 		botAstat.compass = 97;
 		updatePaths();
 		while (pathLenA != 0 || pathLenB != 0) {
@@ -140,6 +145,7 @@ int main() {
 	} else {
 		initValues();
 		share = 0;
+		botAstat.node = 0;
 		botBstat.node = 12;
 		botBstat.compass = 83;
 		updatePaths();

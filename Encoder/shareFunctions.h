@@ -158,7 +158,7 @@ int updateShareA() {
 		pathLenB = (share & 112) >> 4;
 		botB[pathLenB-1].subPathCount = share & 15;
 		share = 0;
-		share = share | botA[pathLenA].subPathCount;
+		share = share | botA[pathLenA-1].subPathCount;
 		share = share | (pathLenA << 4);
 		return 1;
 	}
@@ -175,7 +175,7 @@ int updateShareB() {
 		pathLenA = (share & 112) >> 4;
 		botA[pathLenA-1].subPathCount = share & 15;
 		share = 128;
-		share = share | botB[pathLenB].subPathCount;
+		share = share | botB[pathLenB-1].subPathCount;
 		share = share | (pathLenB << 4);
 		return 1;
 	}
