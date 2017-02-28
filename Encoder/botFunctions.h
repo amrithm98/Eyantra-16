@@ -3,7 +3,7 @@
 // #include "botFunctionsHelper.h"
 
 void lineFollow(int dist) {
-	if (dist == -1) sleep(1);
+	// if (dist == -1) sleep(1);
 }
 
 void rotateAngles(x) {}
@@ -19,7 +19,7 @@ int complementAngle(int angle) {
 void startBot(char driver) {
 	printf("Bot %c started\n", driver);
 	// moveForward();
-	sleep(1);
+	// sleep(1);
 }
 
 void stopBot(char reason[], char driver) {
