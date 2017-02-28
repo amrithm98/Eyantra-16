@@ -35,8 +35,9 @@ void setObstacle(int from, int to) {
 	//
 }
 
-int goFromToA(int from, int to, char driver, char *share) {
+int goFromToA(int from, int to) {
 	int angle, temp, i;
+	char driver = 'A';
 	for (i = 0; i < nodes[from].edgeCount; i++) {
 		if (edgeList[nodes[from].edgeIndices[i]].start == from && edgeList[nodes[from].edgeIndices[i]].end == to) {
 			angle = edgeList[nodes[from].edgeIndices[i]].startCompass;
@@ -64,22 +65,22 @@ int goFromToA(int from, int to, char driver, char *share) {
 			return 0;
 		}
 	}
-	updateShareA(share);
-	if (to == botBstat.node) {
-		stopBot("Collision", driver);
-		while (to == botBstat.node) {
-			if (botAstat.ready == 0) {
-				rotateAngles(-angle);
-				botBstat.ready = 0;
-				while (botBstat.ready == 0);
-				return 0;
-			}
-			updateShareA(share);
-		}
-		startBot(driver);
-	}
-	botAstat.node = to;
-	updateShareA(share);
+	// updateShareA();
+	// if (to == botBstat.node) {
+	// 	stopBot("Collision", driver);
+	// 	while (to == botBstat.node) {
+	// 		if (botAstat.ready == 0) {
+	// 			rotateAngles(-angle);
+	// 			botBstat.ready = 0;
+	// 			while (botBstat.ready == 0);
+	// 			return 0;
+	// 		}
+	// 		updateShareA();
+	// 	}
+	// 	startBot(driver);
+	// }
+	// botAstat.node = to;
+	// updateShareA();
 	botAstat.compass = temp;
 	// 2. Follow line
 	lineFollow(-1);
@@ -87,13 +88,15 @@ int goFromToA(int from, int to, char driver, char *share) {
 	if (obstacleDetect()) {
 		setObstacle(to,2);
 	}
+	sleep(1);
 	printf("%c Going from %d to %d by %d\n", driver, from, to, angle);
 	return 1;
 	// sleep(1);
 }
 
-int goFromToB(int from, int to, char driver, char *share) {
+int goFromToB(int from, int to) {
 	int angle, temp, i;
+	char driver = 'B';
 	for (i = 0; i < nodes[from].edgeCount; i++) {
 		if (edgeList[nodes[from].edgeIndices[i]].start == from && edgeList[nodes[from].edgeIndices[i]].end == to) {
 			angle = edgeList[nodes[from].edgeIndices[i]].startCompass;
@@ -121,22 +124,22 @@ int goFromToB(int from, int to, char driver, char *share) {
 			return 0;
 		}
 	}
-	updateShareB(share);
-	if (to == botAstat.node) {
-		stopBot("Collision", driver);
-		while (to == botAstat.node) {
-			if (botBstat.ready == 0) {
-				rotateAngles(-angle);
-				botAstat.ready = 0;
-				while (botAstat.ready == 0);
-				return 0;
-			}
-			updateShareB(share);
-		}
-		startBot(driver);
-	}
-	botBstat.node = to;
-	updateShareB(share);
+	// updateShareB();
+	// if (to == botAstat.node) {
+	// 	stopBot("Collision", driver);
+	// 	while (to == botAstat.node) {
+	// 		if (botBstat.ready == 0) {
+	// 			rotateAngles(-angle);
+	// 			botAstat.ready = 0;
+	// 			while (botAstat.ready == 0);
+	// 			return 0;
+	// 		}
+	// 		updateShareB();
+	// 	}
+	// 	startBot(driver);
+	// }
+	// botBstat.node = to;
+	// updateShareB();
 	botBstat.compass = temp;
 	// 2. Follow line
 	lineFollow(-1);
@@ -144,6 +147,7 @@ int goFromToB(int from, int to, char driver, char *share) {
 	if (obstacleDetect()) {
 		setObstacle(1,2);
 	}
+	sleep(1);
 	printf("%c Going from %d to %d by %d\n", driver, from, to, angle);
 	return 1;
 	// sleep(1);

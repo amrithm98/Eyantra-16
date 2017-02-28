@@ -132,32 +132,54 @@ void initShare(char share[]) {
 	share[7] = 1;
 }
 
-void updateShareA(char share[]) {
-	if (share[3] == 1) {
-		botBstat.node = share[4];
-		botAstat.ready = share[1];
-		share[0] = botAstat.node;
-		if (share[6] != 0) {
-			noteCount -= share[6];
-			share[6] = 0;
-		}
-	} else if (share[7] == 2) {
-		receiveBA(share);
-	}
+char createShare(char driver, int pathLen, int subPathCount) {
+	char x = subPathCount;
+	pathLen &= 7;
+	pathLen = pathLen << 4;
+	x = x | pathLen;
+	x = x | subPathCount;
+	return x;
 }
 
-void updateShareB(char share[]) {
-	if (share[7] == 1) {
-		botAstat.node = share[0];
-		botBstat.ready = share[5];
-		share[4] = botBstat.node;
-		if (share[2] != 0) {
-			noteCount -= share[2];
-			share[2] = 0;
+void extractShare(char x) {
+	int a, b;
+	a = x & 15;
+	x = x & 112;
+	x = x >> 4;
+}
+
+int updateShareA() {
+	int temp;
+	temp = (share & 128) >> 7;
+	if (temp == 1) { // Bot A
+		if ((share & 127) == 127) {
+			return -1; // obstacle
 		}
-	} else if (share[7] == 2) { // other bot ready for communication
-		receiveAB(share);
+		pathLenB = (share & 112) >> 4;
+		botB[pathLenB-1].subPathCount = share & 15;
+		share = 0;
+		share = share | botA[pathLenA].subPathCount;
+		share = share | (pathLenA << 4);
+		return 1;
 	}
+	return 0;
+}
+
+int updateShareB() {
+	int temp;
+	temp = (share & 128) >> 7;
+	if (temp == 0) { // Bot A
+		if ((share & 127) == 127) {
+			return -1; // obstacle
+		}
+		pathLenA = (share & 112) >> 4;
+		botA[pathLenA-1].subPathCount = share & 15;
+		share = 128;
+		share = share | botB[pathLenB].subPathCount;
+		share = share | (pathLenB << 4);
+		return 1;
+	}
+	return 0;
 }
 
 void changeReadyA(char share[], int val) {

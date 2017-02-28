@@ -12,7 +12,8 @@ struct edges {
 	int distance;
 } edgeList[63];
 
-int notes[] = {20,16,30,13,24,18,29,26,8,6};//{20,16,30,13,24,18,26,29,7,1};
+// int notes[] = {20,16,30,13,24,18,29,26,8,6};
+int notes[] = {20,16,30,13,24,18,26,29,7,1};
 int noteCount = 10;
 int botDistance = 20;
 
@@ -30,7 +31,7 @@ struct botStatus {
 	int nextNode;
 } botAstat, botBstat;
 
-char share[8];
+char *ch;
 /* SHARE VALUES (Basic)
 	0 - botAstat.node
 	1 - botAstat.ready
