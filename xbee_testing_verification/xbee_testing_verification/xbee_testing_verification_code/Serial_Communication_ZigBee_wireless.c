@@ -132,7 +132,6 @@ void uart2_init(void)
  UCSR2B = 0x98;
 }
 
-
 SIGNAL(SIG_USART0_RECV) 		// ISR for receive complete interrupt
 {
 	data = UDR0; 				//making copy of data from UDR0 in 'data' variable 
@@ -149,8 +148,6 @@ SIGNAL(SIG_USART2_RECV) 		// ISR for receive complete interrupt
 	UDR0 = data; 				//echo data back to PC
 
 }
-
-
 
 
 //Function To Initialize all The Devices
